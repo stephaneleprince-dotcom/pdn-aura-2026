@@ -195,6 +195,45 @@
   </div>
 </div>
 
+<!-- EDIT PARTNER MODAL -->
+<div class="modal-overlay" id="editPartnerModal">
+  <div class="modal-box">
+    <h3><i class="fas fa-pencil" style="color:var(--teal);margin-right:8px;"></i>Modifier le partenaire</h3>
+    <input type="hidden" id="editPartnerIndex">
+    <div class="form-row">
+      <div class="form-group">
+        <label>Nom court *</label>
+        <input type="text" id="editPartnerName" placeholder="CNAF">
+      </div>
+      <div class="form-group">
+        <label>Nom complet</label>
+        <input type="text" id="editPartnerFullName" placeholder="Caisse Nationale...">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>URL du site</label>
+      <input type="url" id="editPartnerUrl" placeholder="https://...">
+    </div>
+    <div class="form-group">
+      <label>URL du logo</label>
+      <input type="url" id="editPartnerLogoUrl" placeholder="https://...logo.png">
+    </div>
+    <div class="form-group">
+      <label>Ou remplacer le logo par un fichier</label>
+      <div class="drop-zone" onclick="document.getElementById('editPartnerLogoFile').click()" style="padding:1.25rem;">
+        <i class="fas fa-image"></i>
+        <p>Cliquez pour choisir un fichier logo (PNG recommandé)</p>
+        <input type="file" id="editPartnerLogoFile" accept="image/*" style="display:none" onchange="handleEditPartnerLogoFile(this)">
+      </div>
+      <div id="editPartnerLogoPreview"></div>
+    </div>
+    <div style="display:flex;gap:.75rem;margin-top:1.25rem;">
+      <button class="btn btn--teal" style="flex:1;" onclick="confirmEditPartner()"><i class="fas fa-check"></i> Enregistrer</button>
+      <button class="btn btn--outline" onclick="document.getElementById('editPartnerModal').classList.remove('open')">Annuler</button>
+    </div>
+  </div>
+</div>
+
 <!-- EDIT PHOTO MODAL -->
 <div class="modal-overlay" id="editPhotoModal">
   <div class="modal-box">
@@ -556,9 +595,9 @@ async function uploadImageFile(blob, filename, barId, wrapId) {
   try { const f = await proxyRequest('get', path); sha = f.sha; } catch(e) {}
   if (barId) document.getElementById(barId).style.width = '70%';
 
-  await proxyRequest('put', path, { message: `Upload: ${filename}`, content: base64, sha });
+  const response = await proxyRequest('put', path, { message: `Upload: ${filename}`, content: base64, sha });
   if (barId) { document.getElementById(barId).style.width = '100%'; setTimeout(() => { if (wrapId) document.getElementById(wrapId).style.display = 'none'; }, 500); }
-  return `${GH_PAGES_BASE}/assets/uploads/${filename}`;
+  return response.content?.download_url || `${GH_PAGES_BASE}/assets/uploads/${filename}`;
 }
 
 /* ══════════════════════════════════════════
@@ -566,6 +605,7 @@ async function uploadImageFile(blob, filename, barId, wrapId) {
 ══════════════════════════════════════════ */
 let data = { gallery: [], videos: [], resources: [], partners: [] };
 let partnerLogoFile = null;
+let editPartnerLogoFile = null;
 let selectedFiles = [];
 let logoFile = null;
 let replaceUploadFile = null;
@@ -897,8 +937,13 @@ function renderPartners() {
         ${p.url ? `<span style="font-size:.72rem;">${p.url}</span>` : ''}
       </div>
       <div class="item-card__actions">
-        ${p.url ? `<a href="${p.url}" target="_blank" class="btn btn--outline btn--sm"><i class="fas fa-eye"></i></a>` : ''}
-        <button class="btn btn--red btn--sm" onclick="removePartner(${i})"><i class="fas fa-trash"></i></button>
+        <div style="display:flex;flex-direction:column;gap:2px;">
+          <button class="btn btn--outline btn--sm" style="padding:3px 8px;" ${i===0?'disabled':''} onclick="movePartner(${i},-1)" title="Monter"><i class="fas fa-chevron-up"></i></button>
+          <button class="btn btn--outline btn--sm" style="padding:3px 8px;" ${i===data.partners.length-1?'disabled':''} onclick="movePartner(${i},1)" title="Descendre"><i class="fas fa-chevron-down"></i></button>
+        </div>
+        <button class="btn btn--outline btn--sm" onclick="openEditPartnerModal(${i})" title="Modifier"><i class="fas fa-pencil"></i></button>
+        ${p.url ? `<a href="${p.url}" target="_blank" class="btn btn--outline btn--sm" title="Voir le site"><i class="fas fa-eye"></i></a>` : ''}
+        <button class="btn btn--red btn--sm" onclick="removePartner(${i})" title="Supprimer"><i class="fas fa-trash"></i></button>
       </div>
     </div>`).join('');
 }
@@ -940,6 +985,59 @@ async function removePartner(i) {
   const r = data.partners.splice(i,1);
   try { await autoSave(); renderPartners(); showToast('Partenaire supprimé.', 'ok'); }
   catch(e) { data.partners.splice(i,0,...r); renderPartners(); }
+}
+
+function openEditPartnerModal(i) {
+  const p = data.partners[i];
+  document.getElementById('editPartnerIndex').value = i;
+  document.getElementById('editPartnerName').value = p.name || '';
+  document.getElementById('editPartnerFullName').value = p.fullName || '';
+  document.getElementById('editPartnerUrl').value = p.url || '';
+  document.getElementById('editPartnerLogoUrl').value = p.logoUrl || '';
+  document.getElementById('editPartnerLogoPreview').innerHTML = '';
+  editPartnerLogoFile = null;
+  document.getElementById('editPartnerModal').classList.add('open');
+}
+
+function handleEditPartnerLogoFile(input) {
+  const file = input.files[0]; if (!file) return;
+  editPartnerLogoFile = file;
+  document.getElementById('editPartnerLogoPreview').innerHTML = `<div class="file-preview" style="margin-top:.75rem;"><img src="${URL.createObjectURL(file)}" alt="" style="height:48px;width:auto;object-fit:contain;background:#f0f0f0;border-radius:6px;"><div class="info"><strong>${file.name}</strong></div></div>`;
+}
+
+async function confirmEditPartner() {
+  const i = parseInt(document.getElementById('editPartnerIndex').value);
+  const name = document.getElementById('editPartnerName').value.trim();
+  if (!name) { showToast('Nom court obligatoire.', 'err'); return; }
+  const fullName = document.getElementById('editPartnerFullName').value.trim();
+  const url = document.getElementById('editPartnerUrl').value.trim();
+  let logoUrl = document.getElementById('editPartnerLogoUrl').value.trim();
+
+  if (editPartnerLogoFile) {
+    try {
+      const blob = await resizeImage(editPartnerLogoFile, 400);
+      const ts = Date.now();
+      const filename = `${ts}_${editPartnerLogoFile.name.replace(/[^a-z0-9._-]/gi,'_').toLowerCase()}`;
+      logoUrl = await uploadImageFile(blob, filename, null, null);
+    } catch(e) { showToast('Erreur upload logo : ' + e.message, 'err'); return; }
+  }
+
+  const old = {...data.partners[i]};
+  data.partners[i] = { ...data.partners[i], name, fullName, url, logoUrl };
+  try {
+    await autoSave();
+    renderPartners();
+    document.getElementById('editPartnerModal').classList.remove('open');
+    showToast('Partenaire modifié !', 'ok');
+  } catch(e) { data.partners[i] = old; renderPartners(); }
+}
+
+async function movePartner(i, dir) {
+  const j = i + dir;
+  if (j < 0 || j >= data.partners.length) return;
+  [data.partners[i], data.partners[j]] = [data.partners[j], data.partners[i]];
+  try { await autoSave(); renderPartners(); }
+  catch(e) { [data.partners[i], data.partners[j]] = [data.partners[j], data.partners[i]]; renderPartners(); }
 }
 
 /* ══════════════════════════════════════════

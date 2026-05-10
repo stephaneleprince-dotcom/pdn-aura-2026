@@ -234,6 +234,22 @@
   </div>
 </section>
 
+<!-- PHOTO STRIP -->
+<section id="prog-photos-section" class="photo-strip-section" style="display:none;">
+  <div class="container">
+    <div class="photo-strip-header">
+      <div class="section-label"><i class="fa-solid fa-camera"></i> Moments de la journée</div>
+      <h2>La journée en images</h2>
+    </div>
+    <div id="prog-photo-strip" class="photo-strip"></div>
+    <div class="photo-strip-cta">
+      <a href="galerie.html" class="btn btn--outline" style="border-color:rgba(255,255,255,0.45);color:var(--white);">
+        <i class="fa-solid fa-images"></i> Voir toute la galerie
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- PARTNERS STRIP -->
 <section class="partners-strip" id="partners-section" style="display:none;">
   <div class="container">
@@ -288,6 +304,7 @@ document.addEventListener('click', e => {
 });
 function getInitials(n){return n.split(/[\s\-\/]+/).map(w=>w[0]||'').join('').substring(0,3).toUpperCase();}
 (async()=>{try{const r=await fetch('data/content.json');if(!r.ok)return;const d=await r.json();const p=d.partners||[];if(!p.length)return;document.getElementById('partners-section').style.display='';document.getElementById('partners-logos').innerHTML=p.map(p=>`<a href="${p.url||'#'}" target="_blank" rel="noopener" class="partner-logo" title="${p.fullName||p.name}">${p.logoUrl?`<img src="${p.logoUrl}" alt="${p.name}" class="partner-logo__img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="partner-logo__abbr" style="display:none">${getInitials(p.name)}</div>`:`<div class="partner-logo__abbr">${getInitials(p.name)}</div>`}<span class="partner-logo__name">${p.name}</span></a>`).join('');}catch(e){}})();
+(async()=>{try{const r=await fetch('data/content.json');if(!r.ok)return;const d=await r.json();const photos=(d.gallery||[]).filter(p=>p.url).slice(0,10);if(!photos.length)return;document.getElementById('prog-photos-section').style.display='';document.getElementById('prog-photo-strip').innerHTML=photos.map(p=>`<a href="galerie.html" class="photo-strip-item"><img src="${p.url}" alt="${p.title||p.caption||''}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'photo-strip-placeholder\\'><i class=\\'fa-regular fa-image\\'></i></div>'"></a>`).join('');}catch(e){}})();
 </script>
 </body>
 </html>
