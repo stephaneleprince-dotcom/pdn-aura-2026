@@ -31,7 +31,15 @@
       "caption": "Conférence de Jocelyn Lachance"
     }
   ],
-  "videos": [],
+  "videos": [
+    {
+      "id": "1778420596945",
+      "youtubeId": "I5XIScC9IUU",
+      "embedUrl": "https://www.youtube.com/embed/I5XIScC9IUU",
+      "title": "Conférence : La santé mentale des jeunes à l'ère du numérique",
+      "description": "Avec Jocelyn Lachance.  Co-organisation avec la Ville d'Anglet et les Promeneurs du Net d'AdoEnia."
+    }
+  ],
   "resources": [
     {
       "id": "r1",
