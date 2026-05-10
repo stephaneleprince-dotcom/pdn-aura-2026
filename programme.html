@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Programme – PDN AURA 2026</title>
+  <meta name="description" content="Programme de la première rencontre régionale des Promeneurs du Net AURA, le 30 avril 2026 à Lyon.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    .speaker-grid-prog {
+      display: grid; grid-template-columns: 260px 1fr; gap: 3rem; align-items: start;
+    }
+    .speaker-aside {
+      background: var(--teal-light); border-radius: var(--radius);
+      padding: 2rem; text-align: center;
+      position: sticky; top: 86px;
+    }
+    .speaker-aside__avatar {
+      width: 120px; height: 120px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3.5rem; color: rgba(255,255,255,0.8);
+      margin: 0 auto 1rem; border: 4px solid var(--white);
+      box-shadow: var(--shadow);
+    }
+    .speaker-aside__name { font-family: var(--font-h); font-weight: 800; color: var(--teal-dark); font-size: 1.15rem; margin-bottom: 0.2rem; }
+    .speaker-aside__role { font-size: 0.8rem; color: var(--gray-600); line-height: 1.5; }
+    .conf-highlight {
+      background: var(--teal-deeper); color: var(--white);
+      border-radius: var(--radius); padding: 2rem 2.5rem;
+      margin: 2rem 0; position: relative; overflow: hidden;
+    }
+    .conf-highlight::before {
+      content: '\f130'; font-family: 'Font Awesome 6 Free'; font-weight: 900;
+      position: absolute; right: 1.5rem; top: 1rem;
+      font-size: 5rem; opacity: 0.06; color: var(--white);
+    }
+    .conf-highlight h3 { color: var(--white); margin-bottom: 0.5rem; font-size: 1.3rem; }
+    .conf-highlight p { color: rgba(255,255,255,0.75); margin: 0; }
+    .tl-tag {
+      display: inline-block;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; font-family: var(--font-h);
+      padding: 3px 9px; border-radius: 100px; margin-top: 0.3rem;
+    }
+    .tl-tag--conf { background: var(--orange-light); color: var(--orange); }
+    .tl-tag--atelier { background: var(--teal-light); color: var(--teal); }
+    .tl-tag--break { background: var(--gray-100); color: var(--gray-600); }
+    @media (max-width: 780px) {
+      .speaker-grid-prog { grid-template-columns: 1fr; }
+      .speaker-aside { position: static; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo">
+      <svg viewBox="0 0 44 38" fill="none" aria-hidden="true">
+        <rect x="0" y="0" width="44" height="29" rx="5" fill="#E8621A"/>
+        <polygon points="8,29 4,38 16,29" fill="#E8621A"/>
+        <circle cx="22" cy="12" r="5" fill="white"/>
+        <path d="M13 26c0-5 4-9 9-9s9 4 9 9z" fill="white"/>
+      </svg>
+      <span class="nav__logo-label">
+        PDN AURA
+        <span class="nav__logo-sub">Rencontre Régionale · 2026</span>
+      </span>
+    </a>
+    <div class="nav__links">
+      <a href="index.html">Accueil</a>
+      <a href="programme.html" class="active">Programme</a>
+      <a href="ateliers.html">Ateliers</a>
+      <a href="galerie.html">Galerie</a>
+      <a href="ressources.html">Ressources</a>
+    </div>
+    <button class="nav__burger" id="burger" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+  </div>
+</nav>
+<div class="nav__mobile" id="mobile-nav">
+  <a href="index.html">Accueil</a>
+  <a href="programme.html" class="active">Programme</a>
+  <a href="ateliers.html">Ateliers</a>
+  <a href="galerie.html">Galerie</a>
+  <a href="ressources.html">Ressources</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="container page-hero__inner">
+    <nav class="breadcrumb" aria-label="Fil d'Ariane">
+      <a href="index.html">Accueil</a>
+      <i class="fa-solid fa-chevron-right"></i>
+      <span>Programme</span>
+    </nav>
+    <div class="chip chip--white" style="margin-bottom:1rem;"><i class="fa-solid fa-list-check"></i> Journée du 30 avril 2026</div>
+    <h1>Programme de la journée</h1>
+    <p class="page-hero__sub">De l'accueil café à la clôture, retrouvez le déroulé complet de cette première rencontre régionale PDN AURA.</p>
+  </div>
+</div>
+
+<!-- TIMELINE SECTION -->
+<section class="section section-bg-white">
+  <div class="container">
+    <div class="speaker-grid-prog">
+
+      <!-- TIMELINE -->
+      <div>
+        <div class="section-label" style="margin-bottom:2rem;"><i class="fa-regular fa-clock"></i> Déroulé horaire</div>
+        <div class="timeline">
+
+          <div class="tl-item">
+            <div class="tl-time">9h00</div>
+            <div class="tl-body">
+              <div class="tl-icon" style="background:var(--teal-mid);box-shadow:0 0 0 2px var(--teal-mid);"><i class="fa-solid fa-mug-hot"></i></div>
+              <h3>Accueil café</h3>
+              <p>Ouverture des portes, installation et premiers échanges entre participants.</p>
+            </div>
+          </div>
+
+          <div class="tl-item tl-item--accent">
+            <div class="tl-time">9h30</div>
+            <div class="tl-body">
+              <div class="tl-icon" style="background:var(--orange);box-shadow:0 0 0 2px var(--orange);"><i class="fa-solid fa-flag"></i></div>
+              <h3>Lancement officiel</h3>
+              <span class="tl-tag tl-tag--conf">Plénière</span>
+              <p>Discours d'ouverture par les partenaires institutionnels : CAF AURA, DREETS, Région Auvergne-Rhône-Alpes et CNAF. Présentation des enjeux et du dispositif PDN à l'échelle régionale.</p>
+            </div>
+          </div>
+
+          <div class="tl-item tl-item--accent" id="conference">
+            <div class="tl-time">10h00</div>
+            <div class="tl-body">
+              <div class="tl-icon" style="background:var(--orange);box-shadow:0 0 0 2px var(--orange);"><i class="fa-solid fa-microphone"></i></div>
+              <h3>Conférence – Jocelyn Lachance</h3>
+              <span class="tl-tag tl-tag--conf">Conférence plénière</span>
+              <div class="conf-highlight" style="margin-top:1rem;">
+                <h3>« Les adolescents et les réseaux sociaux : entre risques et ressources »</h3>
+                <p>Une lecture sociologique des usages numériques des jeunes : construction identitaire, rapport aux pairs, rôle des adultes éducateurs et enjeux pour le travail de rue numérique.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="tl-item">
+            <div class="tl-time">11h00</div>
+            <div class="tl-body">
+              <div class="tl-icon"><i class="fa-solid fa-people-group"></i></div>
+              <h3>Ateliers thématiques – Session 1</h3>
+              <span class="tl-tag tl-tag--atelier">Au choix parmi 5 ateliers</span>
+              <p>Première session de travail en petits groupes. Les participants choisissent l'atelier correspondant le mieux à leur pratique et leurs questionnements.</p>
+              <a href="ateliers.html" class="btn btn--teal btn--sm" style="margin-top:0.75rem;"><i class="fa-solid fa-arrow-right"></i> Voir les 5 ateliers</a>
+            </div>
+          </div>
+
+          <div class="tl-item tl-item--break">
+            <div class="tl-time">12h30</div>
+            <div class="tl-body">
+              <div class="tl-icon" style="background:var(--gray-400);box-shadow:0 0 0 2px var(--gray-400);"><i class="fa-solid fa-utensils"></i></div>
+              <h3>Déjeuner</h3>
+              <span class="tl-tag tl-tag--break">Pause</span>
+              <p>Repas convivial favorisant les échanges informels entre participants de différents départements.</p>
+            </div>
+          </div>
+
+          <div class="tl-item">
+            <div class="tl-time">14h00</div>
+            <div class="tl-body">
+              <div class="tl-icon"><i class="fa-solid fa-people-group"></i></div>
+              <h3>Ateliers thématiques – Session 2</h3>
+              <span class="tl-tag tl-tag--atelier">Au choix parmi 5 ateliers</span>
+              <p>Deuxième session permettant d'explorer un autre atelier. Approfondissement, mises en pratique et productions collectives.</p>
+            </div>
+          </div>
+
+          <div class="tl-item tl-item--accent">
+            <div class="tl-time">15h30</div>
+            <div class="tl-body">
+              <div class="tl-icon" style="background:var(--orange);box-shadow:0 0 0 2px var(--orange);"><i class="fa-solid fa-comments"></i></div>
+              <h3>Restitution en plénière</h3>
+              <span class="tl-tag tl-tag--conf">Plénière</span>
+              <p>Chaque groupe d'atelier partage ses productions et réflexions. Échanges collectifs, synthèse et perspectives pour la suite du dispositif PDN en AURA.</p>
+            </div>
+          </div>
+
+          <div class="tl-item tl-item--break">
+            <div class="tl-time">16h30</div>
+            <div class="tl-body">
+              <div class="tl-icon" style="background:var(--teal-mid);box-shadow:0 0 0 2px var(--teal-mid);"><i class="fa-solid fa-star"></i></div>
+              <h3>Clôture de la journée</h3>
+              <span class="tl-tag tl-tag--break">Fin</span>
+              <p>Mot de clôture par les organisateurs, annonce des suites et perspectives pour 2027. Verre de l'amitié.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <div>
+        <div class="section-label" style="margin-bottom:1.5rem;"><i class="fa-solid fa-info-circle"></i> Infos pratiques</div>
+
+        <div class="speaker-aside" style="margin-bottom:1.5rem;">
+          <div class="speaker-aside__avatar"><i class="fa-solid fa-user-tie"></i></div>
+          <div class="speaker-aside__name">Jocelyn Lachance</div>
+          <div class="speaker-aside__role">Sociologue<br>Université de Pau et des Pays de l'Adour</div>
+          <hr style="margin:1rem 0;border-color:rgba(27,109,126,0.15);">
+          <p style="font-size:0.84rem;color:var(--gray-600);line-height:1.6;margin:0;">Expert reconnu des usages numériques adolescents, auteur de plusieurs ouvrages de référence sur le sujet.</p>
+        </div>
+
+        <div class="card card--bordered-teal" style="margin-bottom:1.5rem;">
+          <div class="card__body">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:0.75rem;">
+              <div class="icon-circle icon-circle--teal icon-circle--md"><i class="fa-solid fa-location-dot"></i></div>
+              <h3 style="margin:0;">Lieu</h3>
+            </div>
+            <p style="margin:0;font-size:0.9rem;color:var(--gray-600);">Espace <strong>La Rotonde</strong><br>Lyon, Auvergne-Rhône-Alpes</p>
+          </div>
+        </div>
+
+        <div class="card card--bordered-orange">
+          <div class="card__body">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:0.75rem;">
+              <div class="icon-circle icon-circle--orange icon-circle--md"><i class="fa-solid fa-calendar"></i></div>
+              <h3 style="margin:0;">Date</h3>
+            </div>
+            <p style="margin:0;font-size:0.9rem;color:var(--gray-600);"><strong>Jeudi 30 avril 2026</strong><br>9h00 – 17h00</p>
+          </div>
+        </div>
+
+        <div style="margin-top:1.5rem;">
+          <a href="ateliers.html" class="btn btn--teal btn--full" style="margin-bottom:0.75rem;"><i class="fa-solid fa-people-group"></i> Voir les ateliers</a>
+          <a href="galerie.html" class="btn btn--outline btn--full"><i class="fa-solid fa-camera"></i> Galerie photos</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__cols">
+      <div>
+        <div class="footer__brand">
+          <svg viewBox="0 0 44 38" fill="none" aria-hidden="true">
+            <rect x="0" y="0" width="44" height="29" rx="5" fill="#E8621A"/>
+            <polygon points="8,29 4,38 16,29" fill="#E8621A"/>
+            <circle cx="22" cy="12" r="5" fill="white"/>
+            <path d="M13 26c0-5 4-9 9-9s9 4 9 9z" fill="white"/>
+          </svg>
+          <span class="footer__brand-name">PDN AURA 2026</span>
+        </div>
+        <p class="footer__tagline">Première Rencontre Régionale des Promeneurs du Net<br>Auvergne-Rhône-Alpes · 30 avril 2026 · Lyon</p>
+      </div>
+      <div class="footer__col">
+        <h4>Pages</h4>
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="programme.html">Programme</a></li>
+          <li><a href="ateliers.html">Ateliers</a></li>
+          <li><a href="galerie.html">Galerie</a></li>
+          <li><a href="ressources.html">Ressources</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Liens utiles</h4>
+        <ul>
+          <li><a href="https://promeneursdunet.fr" target="_blank" rel="noopener">Site national PDN</a></li>
+          <li><a href="https://promeneursdunet01.fr" target="_blank" rel="noopener">PDN Ain</a></li>
+          <li><a href="admin.html">Administration</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 PDN Auvergne-Rhône-Alpes</span>
+      <span>Coordination : PDN Ain</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const burger = document.getElementById('burger');
+const mobileNav = document.getElementById('mobile-nav');
+burger.addEventListener('click', () => mobileNav.classList.toggle('open'));
+document.addEventListener('click', e => {
+  if (!e.target.closest('#nav') && !e.target.closest('#mobile-nav')) {
+    mobileNav.classList.remove('open');
+  }
+});
+</script>
+</body>
+</html>

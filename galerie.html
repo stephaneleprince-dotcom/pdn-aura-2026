@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galerie – PDN AURA 2026</title>
+  <meta name="description" content="Photos et vidéos de la première rencontre régionale des Promeneurs du Net AURA, le 30 avril 2026 à Lyon.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    .gal-filter-bar {
+      display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem;
+    }
+    .filter-btn {
+      background: var(--white); border: 2px solid var(--gray-100);
+      color: var(--gray-600); font-family: var(--font-h); font-size: 0.8rem;
+      font-weight: 700; padding: 7px 16px; border-radius: 100px; cursor: pointer;
+      transition: all 0.18s;
+    }
+    .filter-btn:hover { border-color: var(--teal); color: var(--teal); }
+    .filter-btn.active { background: var(--teal); border-color: var(--teal); color: var(--white); }
+    .gal-count {
+      font-size: 0.82rem; color: var(--gray-600); margin-bottom: 1.5rem;
+      font-family: var(--font-h);
+    }
+    .gal-count strong { color: var(--teal); }
+    .gal-loading {
+      grid-column: 1/-1; text-align: center; padding: 3rem;
+      color: var(--gray-600);
+    }
+    .gal-loading i { font-size: 2rem; color: var(--teal); animation: spin 1s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .section-sep {
+      border: none; border-top: 2px solid var(--gray-100);
+      margin: 3rem 0;
+    }
+    .vid-empty { text-align: center; padding: 3rem; color: var(--gray-600); }
+    .vid-empty i { font-size: 3rem; color: var(--teal-light); display: block; margin-bottom: 1rem; }
+    .vid-empty h3 { color: var(--teal-mid); margin-bottom: 0.5rem; }
+  </style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo">
+      <svg viewBox="0 0 44 38" fill="none" aria-hidden="true">
+        <rect x="0" y="0" width="44" height="29" rx="5" fill="#E8621A"/>
+        <polygon points="8,29 4,38 16,29" fill="#E8621A"/>
+        <circle cx="22" cy="12" r="5" fill="white"/>
+        <path d="M13 26c0-5 4-9 9-9s9 4 9 9z" fill="white"/>
+      </svg>
+      <span class="nav__logo-label">
+        PDN AURA
+        <span class="nav__logo-sub">Rencontre Régionale · 2026</span>
+      </span>
+    </a>
+    <div class="nav__links">
+      <a href="index.html">Accueil</a>
+      <a href="programme.html">Programme</a>
+      <a href="ateliers.html">Ateliers</a>
+      <a href="galerie.html" class="active">Galerie</a>
+      <a href="ressources.html">Ressources</a>
+    </div>
+    <button class="nav__burger" id="burger" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+  </div>
+</nav>
+<div class="nav__mobile" id="mobile-nav">
+  <a href="index.html">Accueil</a>
+  <a href="programme.html">Programme</a>
+  <a href="ateliers.html">Ateliers</a>
+  <a href="galerie.html" class="active">Galerie</a>
+  <a href="ressources.html">Ressources</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero" style="background:linear-gradient(135deg,var(--teal-darker,#061e25),var(--teal-deeper));">
+  <div class="container page-hero__inner">
+    <nav class="breadcrumb">
+      <a href="index.html">Accueil</a>
+      <i class="fa-solid fa-chevron-right"></i>
+      <span>Galerie</span>
+    </nav>
+    <div class="chip chip--white" style="margin-bottom:1rem;"><i class="fa-solid fa-camera"></i> Photos &amp; vidéos</div>
+    <h1>Galerie de la rencontre</h1>
+    <p class="page-hero__sub">Les temps forts de la journée en images et en vidéos. Une galerie mise à jour en continu par l'équipe d'organisation.</p>
+  </div>
+</div>
+
+<!-- GALLERY SECTION -->
+<section class="section section-bg-white">
+  <div class="container">
+
+    <!-- PHOTOS -->
+    <div class="section-header">
+      <div class="section-label"><i class="fa-solid fa-images"></i> Photos</div>
+      <h2 class="section-title">Moments de la journée</h2>
+      <p class="section-sub">Cliquez sur une photo pour l'agrandir. L'album complet est disponible sur Google Photos.</p>
+    </div>
+
+    <div id="gal-count" class="gal-count"></div>
+    <div id="gallery-grid" class="gal-grid">
+      <div class="gal-loading"><i class="fa-solid fa-spinner"></i><p style="margin-top:0.75rem;">Chargement…</p></div>
+    </div>
+
+    <div style="text-align:center;margin-top:2.5rem;">
+      <a href="https://photos.app.goo.gl/tYG1qCNHi49rzSn48" target="_blank" rel="noopener" class="btn btn--teal">
+        <i class="fa-brands fa-google"></i> Album Google Photos complet
+      </a>
+    </div>
+
+    <hr class="section-sep">
+
+    <!-- VIDEOS -->
+    <div class="section-header">
+      <div class="section-label"><i class="fa-solid fa-video"></i> Vidéos</div>
+      <h2 class="section-title">Captations de la journée</h2>
+      <p class="section-sub">Replays et extraits vidéo de la conférence et des moments clés.</p>
+    </div>
+
+    <div id="video-grid" class="vid-grid">
+      <div class="vid-empty">
+        <i class="fa-solid fa-circle-play"></i>
+        <h3>Vidéos à venir</h3>
+        <p>Les vidéos de la journée seront ajoutées prochainement par l'équipe d'organisation.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Vue agrandie">
+  <button class="lightbox__close" id="lb-close" aria-label="Fermer"><i class="fa-solid fa-xmark"></i></button>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__cols">
+      <div>
+        <div class="footer__brand">
+          <svg viewBox="0 0 44 38" fill="none" aria-hidden="true">
+            <rect x="0" y="0" width="44" height="29" rx="5" fill="#E8621A"/>
+            <polygon points="8,29 4,38 16,29" fill="#E8621A"/>
+            <circle cx="22" cy="12" r="5" fill="white"/>
+            <path d="M13 26c0-5 4-9 9-9s9 4 9 9z" fill="white"/>
+          </svg>
+          <span class="footer__brand-name">PDN AURA 2026</span>
+        </div>
+        <p class="footer__tagline">Première Rencontre Régionale des Promeneurs du Net<br>Auvergne-Rhône-Alpes · 30 avril 2026 · Lyon</p>
+      </div>
+      <div class="footer__col">
+        <h4>Pages</h4>
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="programme.html">Programme</a></li>
+          <li><a href="ateliers.html">Ateliers</a></li>
+          <li><a href="galerie.html">Galerie</a></li>
+          <li><a href="ressources.html">Ressources</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Liens utiles</h4>
+        <ul>
+          <li><a href="https://promeneursdunet.fr" target="_blank" rel="noopener">Site national PDN</a></li>
+          <li><a href="https://promeneursdunet01.fr" target="_blank" rel="noopener">PDN Ain</a></li>
+          <li><a href="admin.html">Administration</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 PDN Auvergne-Rhône-Alpes</span>
+      <span>Coordination : PDN Ain</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ─── NAV ───
+const burger = document.getElementById('burger');
+const mobileNav = document.getElementById('mobile-nav');
+burger.addEventListener('click', () => mobileNav.classList.toggle('open'));
+document.addEventListener('click', e => {
+  if (!e.target.closest('#nav') && !e.target.closest('#mobile-nav')) {
+    mobileNav.classList.remove('open');
+  }
+});
+
+// ─── LIGHTBOX ───
+const lightbox = document.getElementById('lightbox');
+const lbImg    = document.getElementById('lb-img');
+document.getElementById('lb-close').addEventListener('click', () => lightbox.classList.remove('on'));
+lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.classList.remove('on'); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') lightbox.classList.remove('on'); });
+
+function openLightbox(src, alt) {
+  lbImg.src = src;
+  lbImg.alt = alt || '';
+  lightbox.classList.add('on');
+}
+
+// ─── GALLERY ───
+async function loadGallery() {
+  const grid = document.getElementById('gallery-grid');
+  const countEl = document.getElementById('gal-count');
+  try {
+    const res = await fetch('data/content.json');
+    const data = await res.json();
+    const photos = data.gallery || [];
+
+    if (photos.length === 0) {
+      grid.innerHTML = `
+        <div class="gal-empty">
+          <i class="fa-regular fa-image"></i>
+          <h3>Photos à venir</h3>
+          <p>Les photos de la journée seront ajoutées prochainement.<br>
+          <a href="https://photos.app.goo.gl/tYG1qCNHi49rzSn48" target="_blank" rel="noopener" style="color:var(--teal);">Voir l'album Google Photos</a></p>
+        </div>`;
+      countEl.innerHTML = '';
+      return;
+    }
+
+    countEl.innerHTML = `<strong>${photos.length}</strong> photo${photos.length > 1 ? 's' : ''} dans la galerie`;
+
+    grid.innerHTML = photos.map(p => `
+      <div class="gal-item" tabindex="0" role="button" aria-label="Agrandir : ${p.caption || 'Photo'}"
+           onclick="openLightbox('${p.url}','${(p.caption||'').replace(/'/g,"\\'")}')">
+        <img src="${p.url}" alt="${p.caption || ''}" loading="lazy">
+        <div class="gal-item__overlay">
+          ${p.caption ? `<span class="gal-item__cap">${p.caption}</span>` : ''}
+        </div>
+      </div>`).join('');
+
+    // Keyboard support
+    grid.querySelectorAll('.gal-item').forEach(item => {
+      item.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); item.click(); }
+      });
+    });
+
+    // VIDEO SECTION
+    const videos = data.videos || [];
+    const vidGrid = document.getElementById('video-grid');
+    if (videos.length > 0) {
+      vidGrid.innerHTML = videos.map(v => `
+        <div class="vid-card">
+          <div class="vid-card__thumb">
+            <iframe src="${v.embedUrl}" title="${v.title}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="vid-card__info">
+            <h3>${v.title}</h3>
+            ${v.description ? `<p>${v.description}</p>` : ''}
+          </div>
+        </div>`).join('');
+    }
+
+  } catch(err) {
+    grid.innerHTML = `<div class="gal-empty"><i class="fa-solid fa-triangle-exclamation"></i><h3>Erreur de chargement</h3><p>${err.message}</p></div>`;
+  }
+}
+
+loadGallery();
+</script>
+</body>
+</html>

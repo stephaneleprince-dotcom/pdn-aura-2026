@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ateliers – PDN AURA 2026</title>
+  <meta name="description" content="Les 5 ateliers thématiques de la rencontre régionale PDN AURA 2026 : contenus, objectifs et productions.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    .ateliers-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem;
+    }
+    .atelier-card {
+      background: var(--white); border-radius: var(--radius);
+      box-shadow: var(--shadow); overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: box-shadow 0.22s, transform 0.22s;
+    }
+    .atelier-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+    .atelier-card__header {
+      padding: 2rem 2rem 1.5rem;
+      background: var(--teal-deeper); color: var(--white);
+      position: relative; overflow: hidden;
+    }
+    .atelier-card__header::after {
+      content: attr(data-num);
+      position: absolute; right: 1.5rem; top: 50%; transform: translateY(-50%);
+      font-family: var(--font-h); font-size: 5rem; font-weight: 800;
+      color: rgba(255,255,255,0.06); line-height: 1;
+    }
+    .atelier-card--orange .atelier-card__header { background: linear-gradient(135deg, var(--teal-dark), var(--teal-deeper)); }
+    .atelier-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--orange); color: var(--white);
+      font-family: var(--font-h); font-weight: 800; font-size: 1rem;
+      margin-bottom: 0.75rem; flex-shrink: 0;
+    }
+    .atelier-card__header h3 {
+      color: var(--white); font-size: 1.05rem; line-height: 1.35;
+      margin-bottom: 0.5rem; position: relative; z-index: 1;
+    }
+    .atelier-card__sub {
+      color: rgba(255,255,255,0.65); font-size: 0.82rem;
+      position: relative; z-index: 1;
+    }
+    .atelier-card__body { padding: 1.75rem 2rem; flex: 1; display: flex; flex-direction: column; }
+    .atelier-card__body p { font-size: 0.9rem; color: var(--gray-600); line-height: 1.7; margin-bottom: 1rem; }
+    .atelier-themes { margin-top: auto; }
+    .atelier-themes h4 { font-size: 0.72rem; color: var(--teal); letter-spacing: 0.12em; text-transform: uppercase; font-family: var(--font-h); margin-bottom: 0.5rem; }
+    .theme-list { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .theme-tag {
+      background: var(--teal-light); color: var(--teal-dark);
+      padding: 4px 10px; border-radius: 6px;
+      font-size: 0.76rem; font-family: var(--font-h); font-weight: 600;
+    }
+    .atelier-card--wide { grid-column: 1 / -1; }
+    .atelier-card--wide .atelier-card__header { display: flex; align-items: center; gap: 1.5rem; }
+    .atelier-card--wide .atelier-card__header::after { content: none; }
+    .atelier-card--wide .atelier-card__body { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+    .atelier-card--wide .atelier-card__body > div p { font-size: 0.9rem; color: var(--gray-600); }
+    .atelier-featured { background: var(--orange-light); border-left: 4px solid var(--orange); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 1rem 1.25rem; margin-top: 1rem; }
+    .atelier-featured p { font-size: 0.85rem; color: var(--teal-dark); margin: 0; font-style: italic; }
+
+    .info-banner {
+      background: var(--teal); color: var(--white);
+      border-radius: var(--radius); padding: 2rem 2.5rem;
+      display: flex; align-items: center; gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    .info-banner .icon-circle { flex-shrink: 0; background: rgba(255,255,255,0.15); color: var(--white); }
+    .info-banner h3 { color: var(--white); margin-bottom: 0.25rem; }
+    .info-banner p { color: rgba(255,255,255,0.75); margin: 0; font-size: 0.9rem; }
+
+    @media (max-width: 780px) {
+      .ateliers-grid { grid-template-columns: 1fr; }
+      .atelier-card--wide { grid-column: auto; }
+      .atelier-card--wide .atelier-card__body { grid-template-columns: 1fr; }
+      .info-banner { flex-direction: column; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo">
+      <svg viewBox="0 0 44 38" fill="none" aria-hidden="true">
+        <rect x="0" y="0" width="44" height="29" rx="5" fill="#E8621A"/>
+        <polygon points="8,29 4,38 16,29" fill="#E8621A"/>
+        <circle cx="22" cy="12" r="5" fill="white"/>
+        <path d="M13 26c0-5 4-9 9-9s9 4 9 9z" fill="white"/>
+      </svg>
+      <span class="nav__logo-label">
+        PDN AURA
+        <span class="nav__logo-sub">Rencontre Régionale · 2026</span>
+      </span>
+    </a>
+    <div class="nav__links">
+      <a href="index.html">Accueil</a>
+      <a href="programme.html">Programme</a>
+      <a href="ateliers.html" class="active">Ateliers</a>
+      <a href="galerie.html">Galerie</a>
+      <a href="ressources.html">Ressources</a>
+    </div>
+    <button class="nav__burger" id="burger" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+  </div>
+</nav>
+<div class="nav__mobile" id="mobile-nav">
+  <a href="index.html">Accueil</a>
+  <a href="programme.html">Programme</a>
+  <a href="ateliers.html" class="active">Ateliers</a>
+  <a href="galerie.html">Galerie</a>
+  <a href="ressources.html">Ressources</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero" style="background:linear-gradient(135deg,var(--teal-deeper),var(--teal-dark));">
+  <div class="container page-hero__inner">
+    <nav class="breadcrumb">
+      <a href="index.html">Accueil</a>
+      <i class="fa-solid fa-chevron-right"></i>
+      <span>Ateliers</span>
+    </nav>
+    <div class="chip chip--white" style="margin-bottom:1rem;"><i class="fa-solid fa-people-group"></i> 5 ateliers thématiques</div>
+    <h1>Ateliers de la journée</h1>
+    <p class="page-hero__sub">Deux sessions de travail collaboratif pour partager pratiques, outillages et réflexions entre Promeneurs du Net de toute la région.</p>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<section class="section section-bg-white">
+  <div class="container">
+
+    <div class="info-banner">
+      <div class="icon-circle icon-circle--lg"><i class="fa-solid fa-info-circle"></i></div>
+      <div>
+        <h3>Comment fonctionnaient les ateliers ?</h3>
+        <p>Chaque participant a suivi deux ateliers dans la journée (sessions de 11h à 12h30 et de 14h à 15h30). Les groupes d'une quinzaine de personnes ont travaillé en mode collaboratif, avec un animateur-référent et un co-animateur.</p>
+      </div>
+    </div>
+
+    <div class="ateliers-grid">
+
+      <!-- ATELIER 1 -->
+      <div class="atelier-card">
+        <div class="atelier-card__header" data-num="1">
+          <div class="atelier-num">1</div>
+          <h3>Prévention du cyberharcèlement : identifier, accompagner, orienter</h3>
+          <div class="atelier-card__sub"><i class="fa-solid fa-shield-halved" style="margin-right:5px;"></i>Prévention &amp; protection</div>
+        </div>
+        <div class="atelier-card__body">
+          <p>Comment reconnaître une situation de cyberharcèlement dans les espaces numériques où évoluent les jeunes ? Quels signes, quelles postures et quels outils pour les Promeneurs du Net ?</p>
+          <p>L'atelier a permis de travailler sur des situations concrètes, d'identifier les ressources locales de signalement et de clarifier les limites du rôle du PDN versus celui des autres acteurs (école, police, santé...).</p>
+          <div class="atelier-featured">
+            <p>Résultat : une fiche-réflexe « Le PDN face au cyberharcèlement » co-construite par les participants.</p>
+          </div>
+          <div class="atelier-themes" style="margin-top:1.25rem;">
+            <h4>Thèmes abordés</h4>
+            <div class="theme-list">
+              <span class="theme-tag">Signalement</span>
+              <span class="theme-tag">Posture éducative</span>
+              <span class="theme-tag">Partenariats</span>
+              <span class="theme-tag">Protocoles</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ATELIER 2 -->
+      <div class="atelier-card">
+        <div class="atelier-card__header" data-num="2" style="background:linear-gradient(135deg,var(--teal-dark),#1a5a6a);">
+          <div class="atelier-num">2</div>
+          <h3>Présence numérique des jeunes : TikTok, Discord et nouvelles pratiques</h3>
+          <div class="atelier-card__sub"><i class="fa-brands fa-tiktok" style="margin-right:5px;"></i>Nouvelles plateformes</div>
+        </div>
+        <div class="atelier-card__body">
+          <p>Décryptage des plateformes émergentes et des usages adolescents qui y sont associés. Comment les Promeneurs du Net s'y positionnent-ils pour exercer leur mission de médiation éducative ?</p>
+          <p>Exploration de TikTok, Discord, Twitch et BeReal : les codes, les communautés, les risques spécifiques et les opportunités pour créer du lien avec les jeunes.</p>
+          <div class="atelier-featured">
+            <p>Résultat : cartographie des plateformes prioritaires pour le PDN en 2026 et guide de prise en main rapide.</p>
+          </div>
+          <div class="atelier-themes" style="margin-top:1.25rem;">
+            <h4>Thèmes abordés</h4>
+            <div class="theme-list">
+              <span class="theme-tag">TikTok</span>
+              <span class="theme-tag">Discord</span>
+              <span class="theme-tag">Twitch</span>
+              <span class="theme-tag">Identité numérique</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ATELIER 3 -->
+      <div class="atelier-card">
+        <div class="atelier-card__header" data-num="3" style="background:linear-gradient(135deg,#0e3e4a,var(--teal-deeper));">
+          <div class="atelier-num">3</div>
+          <h3>Créer du contenu avec et pour les jeunes : bonnes pratiques</h3>
+          <div class="atelier-card__sub"><i class="fa-solid fa-camera" style="margin-right:5px;"></i>Création &amp; médiation numérique</div>
+        </div>
+        <div class="atelier-card__body">
+          <p>Comment construire une présence numérique professionnelle et éthique en tant que Promeneur du Net ? Quels contenus produire, comment impliquer les jeunes dans la création, quelles limites poser ?</p>
+          <p>Mise en pratique autour de la production de courtes vidéos et de stories éducatives, avec un regard sur les questions de droit à l'image et de données personnelles des mineurs.</p>
+          <div class="atelier-featured">
+            <p>Résultat : charte de bonne conduite pour la création de contenu PDN et exemples de formats efficaces.</p>
+          </div>
+          <div class="atelier-themes" style="margin-top:1.25rem;">
+            <h4>Thèmes abordés</h4>
+            <div class="theme-list">
+              <span class="theme-tag">Droit à l'image</span>
+              <span class="theme-tag">Création vidéo</span>
+              <span class="theme-tag">Co-création</span>
+              <span class="theme-tag">Éthique</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ATELIER 4 -->
+      <div class="atelier-card">
+        <div class="atelier-card__header" data-num="4" style="background:linear-gradient(135deg,var(--teal),var(--teal-dark));">
+          <div class="atelier-num">4</div>
+          <h3>La posture du Promeneur du Net : aller-vers éducatif et éthique</h3>
+          <div class="atelier-card__sub"><i class="fa-solid fa-person-walking" style="margin-right:5px;"></i>Posture professionnelle</div>
+        </div>
+        <div class="atelier-card__body">
+          <p>Qu'est-ce que « l'aller-vers » à l'ère numérique ? Comment maintenir une posture éducative juste, entre proximité relationnelle et distance professionnelle, sur des espaces informels ?</p>
+          <p>Réflexion sur les valeurs fondatrices du PDN, les situations limites et les risques de dérive (identification excessive, posture de surveillance, frontières floues).</p>
+          <div class="atelier-featured">
+            <p>Résultat : texte collectif sur les valeurs éthiques du PDN, utilisable pour la formation et la communication.</p>
+          </div>
+          <div class="atelier-themes" style="margin-top:1.25rem;">
+            <h4>Thèmes abordés</h4>
+            <div class="theme-list">
+              <span class="theme-tag">Posture éducative</span>
+              <span class="theme-tag">Déontologie</span>
+              <span class="theme-tag">Relation de confiance</span>
+              <span class="theme-tag">Limites</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ATELIER 5 – wide -->
+      <div class="atelier-card atelier-card--wide">
+        <div class="atelier-card__header" style="background:linear-gradient(135deg,var(--teal-deeper),#1c3f4a);">
+          <div class="atelier-num">5</div>
+          <div>
+            <h3>Partenariats locaux et ancrage territorial : coopérer pour mieux accompagner</h3>
+            <div class="atelier-card__sub"><i class="fa-solid fa-handshake" style="margin-right:5px;"></i>Réseau &amp; coopération — Atelier le plus fréquenté</div>
+          </div>
+        </div>
+        <div class="atelier-card__body">
+          <div>
+            <p>Comment les PDN s'articulent-ils avec les acteurs locaux (CAF, structures jeunesse, CPAM, Éducation nationale, collectivités) ? Quelles coopérations sont à développer en priorité ?</p>
+            <p>Cartographie des écosystèmes partenariaux dans différents territoires de la région. Identification des manques, des leviers et des freins à la coopération.</p>
+          </div>
+          <div>
+            <div class="atelier-featured">
+              <p>Résultat : grille d'analyse des partenariats par territoire et liste de recommandations pour les coordinations CAF.</p>
+            </div>
+            <div class="atelier-themes" style="margin-top:1.25rem;">
+              <h4>Thèmes abordés</h4>
+              <div class="theme-list">
+                <span class="theme-tag">CAF</span>
+                <span class="theme-tag">Collectivités</span>
+                <span class="theme-tag">Éducation nationale</span>
+                <span class="theme-tag">Réseau local</span>
+                <span class="theme-tag">Coordination</span>
+                <span class="theme-tag">Conventionnement</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /ateliers-grid -->
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section class="section--sm section-bg-teal-light">
+  <div class="container--narrow">
+    <div class="quote-block">
+      <p>« Les ateliers ont confirmé à quel point nos pratiques se ressemblent d'un département à l'autre, mais aussi à quel point le contexte local change tout. Cette richesse de la diversité, c'est exactement ce pour quoi il fallait se réunir. »</p>
+      <cite>— Animatrice PDN, Savoie</cite>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__cols">
+      <div>
+        <div class="footer__brand">
+          <svg viewBox="0 0 44 38" fill="none" aria-hidden="true">
+            <rect x="0" y="0" width="44" height="29" rx="5" fill="#E8621A"/>
+            <polygon points="8,29 4,38 16,29" fill="#E8621A"/>
+            <circle cx="22" cy="12" r="5" fill="white"/>
+            <path d="M13 26c0-5 4-9 9-9s9 4 9 9z" fill="white"/>
+          </svg>
+          <span class="footer__brand-name">PDN AURA 2026</span>
+        </div>
+        <p class="footer__tagline">Première Rencontre Régionale des Promeneurs du Net<br>Auvergne-Rhône-Alpes · 30 avril 2026 · Lyon</p>
+      </div>
+      <div class="footer__col">
+        <h4>Pages</h4>
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="programme.html">Programme</a></li>
+          <li><a href="ateliers.html">Ateliers</a></li>
+          <li><a href="galerie.html">Galerie</a></li>
+          <li><a href="ressources.html">Ressources</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Liens utiles</h4>
+        <ul>
+          <li><a href="https://promeneursdunet.fr" target="_blank" rel="noopener">Site national PDN</a></li>
+          <li><a href="https://promeneursdunet01.fr" target="_blank" rel="noopener">PDN Ain</a></li>
+          <li><a href="admin.html">Administration</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 PDN Auvergne-Rhône-Alpes</span>
+      <span>Coordination : PDN Ain</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const burger = document.getElementById('burger');
+const mobileNav = document.getElementById('mobile-nav');
+burger.addEventListener('click', () => mobileNav.classList.toggle('open'));
+document.addEventListener('click', e => {
+  if (!e.target.closest('#nav') && !e.target.closest('#mobile-nav')) {
+    mobileNav.classList.remove('open');
+  }
+});
+</script>
+</body>
+</html>

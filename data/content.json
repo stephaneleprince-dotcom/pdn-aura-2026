@@ -1,5 +1,36 @@
 {
-  "gallery": [],
+  "gallery": [
+    {
+      "id": "g1",
+      "url": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80",
+      "caption": "Plénière d'ouverture – 30 avril 2026"
+    },
+    {
+      "id": "g2",
+      "url": "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=800&q=80",
+      "caption": "Temps d'atelier en petits groupes"
+    },
+    {
+      "id": "g3",
+      "url": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80",
+      "caption": "Échanges entre Promeneurs du Net"
+    },
+    {
+      "id": "g4",
+      "url": "https://images.unsplash.com/photo-1529156069898-4f9b5ce5d490?w=800&q=80",
+      "caption": "Moment de networking entre participants"
+    },
+    {
+      "id": "g5",
+      "url": "https://images.unsplash.com/photo-1521737604082-cfd17d6e4d45?w=800&q=80",
+      "caption": "Travail collaboratif en atelier"
+    },
+    {
+      "id": "g6",
+      "url": "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=800&q=80",
+      "caption": "Conférence de Jocelyn Lachance"
+    }
+  ],
   "videos": [],
   "resources": [
     {
@@ -15,6 +46,27 @@
       "url": "https://promeneursdunet01.fr/?p=968",
       "description": "L'article d'annonce rédigé par la coordination PDN de l'Ain pour présenter la première journée régionale.",
       "category": "Dispositif PDN"
+    },
+    {
+      "id": "r3",
+      "title": "Cybermalveillance.gouv.fr",
+      "url": "https://www.cybermalveillance.gouv.fr",
+      "description": "Plateforme nationale d'assistance et de prévention face aux cybermenaces, recommandée pour les PDN.",
+      "category": "Prévention"
+    },
+    {
+      "id": "r4",
+      "title": "Internet Sans Crainte",
+      "url": "https://internetsanscrainte.fr",
+      "description": "Programme national d'éducation à l'internet responsable avec des ressources pédagogiques clés en main.",
+      "category": "Formation"
+    },
+    {
+      "id": "r5",
+      "title": "e-Enfance / 3018",
+      "url": "https://e-enfance.org",
+      "description": "Association spécialisée dans la protection des mineurs sur internet. Numéro national 3018 pour le cyberharcèlement.",
+      "category": "Prévention"
     }
   ]
 }

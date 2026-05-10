@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ressources – PDN AURA 2026</title>
+  <meta name="description" content="Sites, outils et documents partagés lors de la première rencontre régionale PDN AURA 2026.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    .res-cats { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem; }
+    .res-cat-btn {
+      background: var(--white); border: 2px solid var(--gray-100);
+      color: var(--gray-600); font-family: var(--font-h); font-size: 0.8rem;
+      font-weight: 700; padding: 7px 16px; border-radius: 100px; cursor: pointer;
+      transition: all 0.18s;
+    }
+    .res-cat-btn:hover { border-color: var(--teal); color: var(--teal); }
+    .res-cat-btn.active { background: var(--teal); border-color: var(--teal); color: var(--white); }
+    .static-res-section { margin-top: 4rem; }
+    .static-res-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap: 1.25rem; margin-top: 1.5rem; }
+    .static-res-item {
+      background: var(--teal-light); border-radius: var(--radius-sm);
+      padding: 1.25rem 1.5rem;
+      display: flex; align-items: flex-start; gap: 1rem;
+      transition: background 0.18s;
+    }
+    .static-res-item:hover { background: #d4eaf0; }
+    .static-res-item .icon-circle { flex-shrink: 0; }
+    .static-res-item h4 { font-size: 0.92rem; color: var(--teal-dark); margin-bottom: 0.2rem; }
+    .static-res-item p { font-size: 0.82rem; color: var(--gray-600); margin: 0 0 0.5rem; }
+    .static-res-item a { font-size: 0.8rem; color: var(--teal); font-family: var(--font-h); font-weight: 700; }
+    .res-loading { text-align: center; padding: 3rem; color: var(--gray-600); }
+    .res-loading i { font-size: 2rem; color: var(--teal); animation: spin 1s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .res-section-title {
+      font-family: var(--font-h); font-size: 0.7rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.14em; color: var(--teal);
+      margin-bottom: 1.25rem; padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--teal-light);
+    }
+    .res-add-banner {
+      background: var(--orange-light); border: 2px dashed rgba(232,98,26,0.3);
+      border-radius: var(--radius); padding: 2rem;
+      text-align: center; margin-top: 2rem;
+    }
+    .res-add-banner i { font-size: 2rem; color: var(--orange); margin-bottom: 0.75rem; display: block; }
+    .res-add-banner p { color: var(--gray-600); font-size: 0.9rem; margin: 0 0 1rem; }
+  </style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo">
+      <svg viewBox="0 0 44 38" fill="none" aria-hidden="true">
+        <rect x="0" y="0" width="44" height="29" rx="5" fill="#E8621A"/>
+        <polygon points="8,29 4,38 16,29" fill="#E8621A"/>
+        <circle cx="22" cy="12" r="5" fill="white"/>
+        <path d="M13 26c0-5 4-9 9-9s9 4 9 9z" fill="white"/>
+      </svg>
+      <span class="nav__logo-label">
+        PDN AURA
+        <span class="nav__logo-sub">Rencontre Régionale · 2026</span>
+      </span>
+    </a>
+    <div class="nav__links">
+      <a href="index.html">Accueil</a>
+      <a href="programme.html">Programme</a>
+      <a href="ateliers.html">Ateliers</a>
+      <a href="galerie.html">Galerie</a>
+      <a href="ressources.html" class="active">Ressources</a>
+    </div>
+    <button class="nav__burger" id="burger" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+  </div>
+</nav>
+<div class="nav__mobile" id="mobile-nav">
+  <a href="index.html">Accueil</a>
+  <a href="programme.html">Programme</a>
+  <a href="ateliers.html">Ateliers</a>
+  <a href="galerie.html">Galerie</a>
+  <a href="ressources.html" class="active">Ressources</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="container page-hero__inner">
+    <nav class="breadcrumb">
+      <a href="index.html">Accueil</a>
+      <i class="fa-solid fa-chevron-right"></i>
+      <span>Ressources</span>
+    </nav>
+    <div class="chip chip--white" style="margin-bottom:1rem;"><i class="fa-solid fa-book-open"></i> Liens &amp; documents</div>
+    <h1>Ressources partagées</h1>
+    <p class="page-hero__sub">Sites de référence, outils pratiques et documents partagés lors de la rencontre régionale pour enrichir votre pratique de Promeneur du Net.</p>
+  </div>
+</div>
+
+<!-- DYNAMIC RESOURCES -->
+<section class="section section-bg-white">
+  <div class="container">
+
+    <div class="section-header">
+      <div class="section-label"><i class="fa-solid fa-link"></i> Ressources de la journée</div>
+      <h2 class="section-title">Liens et documents</h2>
+      <p class="section-sub">Ressources référencées par les participants et les intervenants. Cette liste sera enrichie après chaque événement.</p>
+    </div>
+
+    <div id="res-cats" class="res-cats"></div>
+    <div id="res-grid" class="res-grid">
+      <div class="res-loading"><i class="fa-solid fa-spinner"></i><p style="margin-top:0.75rem;">Chargement…</p></div>
+    </div>
+
+    <div class="res-add-banner">
+      <i class="fa-solid fa-circle-plus"></i>
+      <p>Vous souhaitez ajouter une ressource à cette liste ?<br>Contactez la coordination PDN Ain ou utilisez le panneau d'administration.</p>
+      <a href="admin.html" class="btn btn--orange btn--sm"><i class="fa-solid fa-lock"></i> Accès administration</a>
+    </div>
+
+    <!-- STATIC RESOURCES -->
+    <div class="static-res-section">
+      <div class="res-section-title"><i class="fa-solid fa-star" style="margin-right:6px;"></i>Ressources permanentes PDN</div>
+      <div class="static-res-grid">
+        <div class="static-res-item">
+          <div class="icon-circle icon-circle--teal icon-circle--md"><i class="fa-solid fa-globe"></i></div>
+          <div>
+            <h4>Site national PDN</h4>
+            <p>Actualités, annuaire et ressources du dispositif national.</p>
+            <a href="https://promeneursdunet.fr" target="_blank" rel="noopener">promeneursdunet.fr →</a>
+          </div>
+        </div>
+        <div class="static-res-item">
+          <div class="icon-circle icon-circle--teal icon-circle--md"><i class="fa-solid fa-map-location"></i></div>
+          <div>
+            <h4>PDN Ain</h4>
+            <p>Le site de coordination du département de l'Ain, organisateur de l'événement.</p>
+            <a href="https://promeneursdunet01.fr" target="_blank" rel="noopener">promeneursdunet01.fr →</a>
+          </div>
+        </div>
+        <div class="static-res-item">
+          <div class="icon-circle icon-circle--orange icon-circle--md"><i class="fa-solid fa-building-columns"></i></div>
+          <div>
+            <h4>CAF AURA</h4>
+            <p>Les Caisses d'Allocations Familiales partenaires du dispositif PDN en Auvergne-Rhône-Alpes.</p>
+            <a href="https://www.caf.fr" target="_blank" rel="noopener">caf.fr →</a>
+          </div>
+        </div>
+        <div class="static-res-item">
+          <div class="icon-circle icon-circle--teal icon-circle--md" style="background:var(--teal-mid);"><i class="fa-solid fa-shield-halved"></i></div>
+          <div>
+            <h4>Cybermalveillance.gouv.fr</h4>
+            <p>Ressource nationale de référence sur la sécurité et les risques numériques.</p>
+            <a href="https://www.cybermalveillance.gouv.fr" target="_blank" rel="noopener">cybermalveillance.gouv.fr →</a>
+          </div>
+        </div>
+        <div class="static-res-item">
+          <div class="icon-circle icon-circle--teal icon-circle--md" style="background:var(--teal-mid);"><i class="fa-solid fa-graduation-cap"></i></div>
+          <div>
+            <h4>Internet Sans Crainte</h4>
+            <p>Programme national d'éducation à l'internet responsable, avec des ressources pédagogiques.</p>
+            <a href="https://internetsanscrainte.fr" target="_blank" rel="noopener">internetsanscrainte.fr →</a>
+          </div>
+        </div>
+        <div class="static-res-item">
+          <div class="icon-circle icon-circle--orange icon-circle--md"><i class="fa-solid fa-book"></i></div>
+          <div>
+            <h4>Ouvrages de Jocelyn Lachance</h4>
+            <p>Bibliographie complète du conférencier invité de la rencontre régionale 2026.</p>
+            <a href="https://www.lachance.eu" target="_blank" rel="noopener">lachance.eu →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__cols">
+      <div>
+        <div class="footer__brand">
+          <svg viewBox="0 0 44 38" fill="none" aria-hidden="true">
+            <rect x="0" y="0" width="44" height="29" rx="5" fill="#E8621A"/>
+            <polygon points="8,29 4,38 16,29" fill="#E8621A"/>
+            <circle cx="22" cy="12" r="5" fill="white"/>
+            <path d="M13 26c0-5 4-9 9-9s9 4 9 9z" fill="white"/>
+          </svg>
+          <span class="footer__brand-name">PDN AURA 2026</span>
+        </div>
+        <p class="footer__tagline">Première Rencontre Régionale des Promeneurs du Net<br>Auvergne-Rhône-Alpes · 30 avril 2026 · Lyon</p>
+      </div>
+      <div class="footer__col">
+        <h4>Pages</h4>
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="programme.html">Programme</a></li>
+          <li><a href="ateliers.html">Ateliers</a></li>
+          <li><a href="galerie.html">Galerie</a></li>
+          <li><a href="ressources.html">Ressources</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Liens utiles</h4>
+        <ul>
+          <li><a href="https://promeneursdunet.fr" target="_blank" rel="noopener">Site national PDN</a></li>
+          <li><a href="https://promeneursdunet01.fr" target="_blank" rel="noopener">PDN Ain</a></li>
+          <li><a href="admin.html">Administration</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 PDN Auvergne-Rhône-Alpes</span>
+      <span>Coordination : PDN Ain</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ─── NAV ───
+const burger = document.getElementById('burger');
+const mobileNav = document.getElementById('mobile-nav');
+burger.addEventListener('click', () => mobileNav.classList.toggle('open'));
+document.addEventListener('click', e => {
+  if (!e.target.closest('#nav') && !e.target.closest('#mobile-nav')) {
+    mobileNav.classList.remove('open');
+  }
+});
+
+// ─── RESOURCES ───
+let allResources = [];
+let currentCat = 'Tous';
+
+const catIcons = {
+  'Dispositif PDN': 'fa-solid fa-comment-dots',
+  'Prévention': 'fa-solid fa-shield-halved',
+  'Outils': 'fa-solid fa-toolbox',
+  'Formation': 'fa-solid fa-graduation-cap',
+  'Recherche': 'fa-solid fa-microscope',
+  'Partenaires': 'fa-solid fa-handshake',
+};
+
+function getIcon(cat) {
+  return catIcons[cat] || 'fa-solid fa-link';
+}
+
+function renderResources(items) {
+  const grid = document.getElementById('res-grid');
+  if (items.length === 0) {
+    grid.innerHTML = `<div class="res-empty"><i class="fa-solid fa-folder-open"></i><p>Aucune ressource dans cette catégorie pour l'instant.</p></div>`;
+    return;
+  }
+  grid.innerHTML = items.map(r => `
+    <div class="res-card">
+      <div class="res-card__cat"><i class="${getIcon(r.category)}" style="margin-right:5px;"></i>${r.category || 'Ressource'}</div>
+      <h3>${r.title}</h3>
+      <p>${r.description || ''}</p>
+      <a href="${r.url}" target="_blank" rel="noopener" class="res-card__link">
+        Accéder à la ressource <i class="fa-solid fa-arrow-right"></i>
+      </a>
+    </div>`).join('');
+}
+
+function renderCatFilter(resources) {
+  const cats = ['Tous', ...new Set(resources.map(r => r.category).filter(Boolean))];
+  const bar = document.getElementById('res-cats');
+  bar.innerHTML = cats.map(c => `
+    <button class="res-cat-btn${c === currentCat ? ' active' : ''}" data-cat="${c}">
+      ${c === 'Tous' ? `<i class="fa-solid fa-border-all" style="margin-right:5px;"></i>` : ''}${c}
+    </button>`).join('');
+  bar.querySelectorAll('.res-cat-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      currentCat = btn.dataset.cat;
+      bar.querySelectorAll('.res-cat-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filtered = currentCat === 'Tous' ? allResources : allResources.filter(r => r.category === currentCat);
+      renderResources(filtered);
+    });
+  });
+}
+
+async function loadResources() {
+  const grid = document.getElementById('res-grid');
+  try {
+    const res = await fetch('data/content.json');
+    const data = await res.json();
+    allResources = data.resources || [];
+
+    if (allResources.length === 0) {
+      grid.innerHTML = `<div class="res-empty"><i class="fa-solid fa-box-open"></i><p>Aucune ressource ajoutée pour l'instant. Revenez bientôt !</p></div>`;
+      document.getElementById('res-cats').innerHTML = '';
+      return;
+    }
+
+    renderCatFilter(allResources);
+    renderResources(allResources);
+  } catch(err) {
+    grid.innerHTML = `<div class="res-empty"><i class="fa-solid fa-triangle-exclamation"></i><p>Erreur : ${err.message}</p></div>`;
+  }
+}
+
+loadResources();
+</script>
+</body>
+</html>
