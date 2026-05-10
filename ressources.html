@@ -170,6 +170,14 @@
   </div>
 </section>
 
+<!-- PARTNERS STRIP -->
+<section class="partners-strip" id="partners-section" style="display:none;">
+  <div class="container">
+    <div class="partners-strip__title">Partenaires de la rencontre</div>
+    <div id="partners-logos" class="partners-logos"></div>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer class="footer">
   <div class="container">
@@ -213,10 +221,10 @@ const burger = document.getElementById('burger');
 const mobileNav = document.getElementById('mobile-nav');
 burger.addEventListener('click', () => mobileNav.classList.toggle('open'));
 document.addEventListener('click', e => {
-  if (!e.target.closest('#nav') && !e.target.closest('#mobile-nav')) {
-    mobileNav.classList.remove('open');
-  }
+  if (!e.target.closest('#nav') && !e.target.closest('#mobile-nav')) mobileNav.classList.remove('open');
 });
+function getInitials(n){return n.split(/[\s\-\/]+/).map(w=>w[0]||'').join('').substring(0,3).toUpperCase();}
+(async()=>{try{const r=await fetch('data/content.json');if(!r.ok)return;const d=await r.json();const p=d.partners||[];if(!p.length)return;document.getElementById('partners-section').style.display='';document.getElementById('partners-logos').innerHTML=p.map(p=>`<a href="${p.url||'#'}" target="_blank" rel="noopener" class="partner-logo" title="${p.fullName||p.name}">${p.logoUrl?`<img src="${p.logoUrl}" alt="${p.name}" class="partner-logo__img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="partner-logo__abbr" style="display:none">${getInitials(p.name)}</div>`:`<div class="partner-logo__abbr">${getInitials(p.name)}</div>`}<span class="partner-logo__name">${p.name}</span></a>`).join('');}catch(e){}})();
 
 // ─── RESOURCES ───
 let allResources = [];

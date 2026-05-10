@@ -3,22 +3,30 @@
     {
       "id": "g1",
       "url": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80",
-      "caption": "Plénière d'ouverture – 30 avril 2026"
+      "caption": "Plénière d'ouverture – 30 avril 2026",
+      "title": "Plénière d'ouverture",
+      "description": "La salle La Rotonde accueille les 150 participants pour le lancement officiel de la première rencontre régionale PDN AURA."
     },
     {
       "id": "g2",
       "url": "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=800&q=80",
-      "caption": "Temps d'atelier en petits groupes"
+      "caption": "Temps d'atelier en petits groupes",
+      "title": "Ateliers thématiques",
+      "description": "Les groupes de 15 participants travaillent en mode collaboratif autour de thématiques choisies par les Promeneurs du Net."
     },
     {
       "id": "g3",
       "url": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80",
-      "caption": "Échanges entre Promeneurs du Net"
+      "caption": "Échanges entre Promeneurs du Net",
+      "title": "Échanges et partage",
+      "description": "Promeneurs du Net de toute la région AURA échangent sur leurs pratiques et expériences de terrain."
     },
     {
       "id": "g5",
       "url": "https://images.unsplash.com/photo-1521737604082-cfd17d6e4d45?w=800&q=80",
-      "caption": "Travail collaboratif en atelier"
+      "caption": "Travail collaboratif en atelier",
+      "title": "Travail collaboratif",
+      "description": "Chaque atelier produit une ressource concrète directement utilisable par les Promeneurs du Net dans leur pratique quotidienne."
     },
     {
       "id": "1778425356256",
@@ -200,6 +208,64 @@
       "url": "https://e-enfance.org",
       "description": "Association spécialisée dans la protection des mineurs sur internet. Numéro national 3018 pour le cyberharcèlement.",
       "category": "Prévention"
+    }
+  ],
+  "partners": [
+    {
+      "id": "pt1",
+      "name": "CNAF",
+      "fullName": "Caisse Nationale des Allocations Familiales",
+      "url": "https://www.cnaf.fr",
+      "logoUrl": ""
+    },
+    {
+      "id": "pt2",
+      "name": "Promeneurs du Net",
+      "fullName": "Dispositif national Promeneurs du Net",
+      "url": "https://promeneursdunet.fr",
+      "logoUrl": ""
+    },
+    {
+      "id": "pt3",
+      "name": "CAF Ain",
+      "fullName": "CAF de l'Ain – Coordination PDN 01",
+      "url": "https://www.caf.fr/allocataires/caf-de-l-ain",
+      "logoUrl": ""
+    },
+    {
+      "id": "pt4",
+      "name": "CAF Rhône",
+      "fullName": "CAF du Rhône – Coordination PDN 69",
+      "url": "https://www.caf.fr/allocataires/caf-du-rhone",
+      "logoUrl": ""
+    },
+    {
+      "id": "pt5",
+      "name": "CAF Isère",
+      "fullName": "CAF de l'Isère – Coordination PDN 38",
+      "url": "https://www.caf.fr/allocataires/caf-de-l-isere",
+      "logoUrl": ""
+    },
+    {
+      "id": "pt6",
+      "name": "CAF Savoie",
+      "fullName": "CAF de la Savoie – Coordination PDN 73",
+      "url": "https://www.caf.fr/allocataires/caf-de-la-savoie",
+      "logoUrl": ""
+    },
+    {
+      "id": "pt7",
+      "name": "CAF Hte-Savoie",
+      "fullName": "CAF de la Haute-Savoie – Coordination PDN 74",
+      "url": "https://www.caf.fr/allocataires/caf-de-la-haute-savoie",
+      "logoUrl": ""
+    },
+    {
+      "id": "pt8",
+      "name": "CAF Loire",
+      "fullName": "CAF de la Loire – Coordination PDN 42",
+      "url": "https://www.caf.fr/allocataires/caf-de-la-loire",
+      "logoUrl": ""
     }
   ]
 }

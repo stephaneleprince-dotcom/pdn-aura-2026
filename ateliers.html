@@ -140,7 +140,7 @@
 
       <!-- ATELIER 1 -->
       <div class="atelier-card">
-        <div class="atelier-card__header" data-num="1">
+        <div class="atelier-card__header atelier-card__header--photo" data-num="1" style="background-image:url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=80');">
           <div class="atelier-num">1</div>
           <h3>Prévention du cyberharcèlement : identifier, accompagner, orienter</h3>
           <div class="atelier-card__sub"><i class="fa-solid fa-shield-halved" style="margin-right:5px;"></i>Prévention &amp; protection</div>
@@ -165,7 +165,7 @@
 
       <!-- ATELIER 2 -->
       <div class="atelier-card">
-        <div class="atelier-card__header" data-num="2" style="background:linear-gradient(135deg,var(--teal-dark),#1a5a6a);">
+        <div class="atelier-card__header atelier-card__header--photo" data-num="2" style="background-image:url('https://images.unsplash.com/photo-1529156069898-4f9b5ce5d490?w=600&q=80');">
           <div class="atelier-num">2</div>
           <h3>Présence numérique des jeunes : TikTok, Discord et nouvelles pratiques</h3>
           <div class="atelier-card__sub"><i class="fa-brands fa-tiktok" style="margin-right:5px;"></i>Nouvelles plateformes</div>
@@ -190,7 +190,7 @@
 
       <!-- ATELIER 3 -->
       <div class="atelier-card">
-        <div class="atelier-card__header" data-num="3" style="background:linear-gradient(135deg,#0e3e4a,var(--teal-deeper));">
+        <div class="atelier-card__header atelier-card__header--photo" data-num="3" style="background-image:url('https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=600&q=80');">
           <div class="atelier-num">3</div>
           <h3>Créer du contenu avec et pour les jeunes : bonnes pratiques</h3>
           <div class="atelier-card__sub"><i class="fa-solid fa-camera" style="margin-right:5px;"></i>Création &amp; médiation numérique</div>
@@ -215,7 +215,7 @@
 
       <!-- ATELIER 4 -->
       <div class="atelier-card">
-        <div class="atelier-card__header" data-num="4" style="background:linear-gradient(135deg,var(--teal),var(--teal-dark));">
+        <div class="atelier-card__header atelier-card__header--photo" data-num="4" style="background-image:url('https://images.unsplash.com/photo-1521737604082-cfd17d6e4d45?w=600&q=80');">
           <div class="atelier-num">4</div>
           <h3>La posture du Promeneur du Net : aller-vers éducatif et éthique</h3>
           <div class="atelier-card__sub"><i class="fa-solid fa-person-walking" style="margin-right:5px;"></i>Posture professionnelle</div>
@@ -240,7 +240,7 @@
 
       <!-- ATELIER 5 – wide -->
       <div class="atelier-card atelier-card--wide">
-        <div class="atelier-card__header" style="background:linear-gradient(135deg,var(--teal-deeper),#1c3f4a);">
+        <div class="atelier-card__header atelier-card__header--photo" style="background-image:url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80');">
           <div class="atelier-num">5</div>
           <div>
             <h3>Partenariats locaux et ancrage territorial : coopérer pour mieux accompagner</h3>
@@ -282,6 +282,14 @@
       <p>« Les ateliers ont confirmé à quel point nos pratiques se ressemblent d'un département à l'autre, mais aussi à quel point le contexte local change tout. Cette richesse de la diversité, c'est exactement ce pour quoi il fallait se réunir. »</p>
       <cite>— Animatrice PDN, Savoie</cite>
     </div>
+  </div>
+</section>
+
+<!-- PARTNERS STRIP -->
+<section class="partners-strip" id="partners-section" style="display:none;">
+  <div class="container">
+    <div class="partners-strip__title">Partenaires de la rencontre</div>
+    <div id="partners-logos" class="partners-logos"></div>
   </div>
 </section>
 
@@ -327,10 +335,10 @@ const burger = document.getElementById('burger');
 const mobileNav = document.getElementById('mobile-nav');
 burger.addEventListener('click', () => mobileNav.classList.toggle('open'));
 document.addEventListener('click', e => {
-  if (!e.target.closest('#nav') && !e.target.closest('#mobile-nav')) {
-    mobileNav.classList.remove('open');
-  }
+  if (!e.target.closest('#nav') && !e.target.closest('#mobile-nav')) mobileNav.classList.remove('open');
 });
+function getInitials(n){return n.split(/[\s\-\/]+/).map(w=>w[0]||'').join('').substring(0,3).toUpperCase();}
+(async()=>{try{const r=await fetch('data/content.json');if(!r.ok)return;const d=await r.json();const p=d.partners||[];if(!p.length)return;document.getElementById('partners-section').style.display='';document.getElementById('partners-logos').innerHTML=p.map(p=>`<a href="${p.url||'#'}" target="_blank" rel="noopener" class="partner-logo" title="${p.fullName||p.name}">${p.logoUrl?`<img src="${p.logoUrl}" alt="${p.name}" class="partner-logo__img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="partner-logo__abbr" style="display:none">${getInitials(p.name)}</div>`:`<div class="partner-logo__abbr">${getInitials(p.name)}</div>`}<span class="partner-logo__name">${p.name}</span></a>`).join('');}catch(e){}})();
 </script>
 </body>
 </html>

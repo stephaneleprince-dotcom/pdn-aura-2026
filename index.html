@@ -33,41 +33,33 @@
     }
     .home-hero__inner {
       position: relative; z-index: 1;
-      padding: 5rem 1.5rem 4rem;
+      padding: 4rem 1.5rem 3rem;
       max-width: 1180px; margin: 0 auto; width: 100%;
       display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
     }
     .hero-content { position: relative; z-index: 2; }
-    .hero-visual {
-      position: relative; z-index: 2;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .hero-visual img { max-height: 320px; width: auto; filter: drop-shadow(0 10px 30px rgba(27,109,126,0.2)); }
+    .hero-visual { position: relative; z-index: 2; }
     .hero-event-badge {
       display: inline-flex; align-items: center; gap: 8px;
       background: var(--orange-light); color: var(--orange);
       border: 1px solid rgba(232,98,26,0.25);
       padding: 7px 18px; border-radius: 100px;
       font-family: var(--font-h); font-size: 0.73rem; font-weight: 700;
-      letter-spacing: 0.15em; text-transform: uppercase;
-      margin-bottom: 1.75rem;
+      letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1.5rem;
     }
     .home-hero h1 {
-      color: var(--teal-deeper);
-      font-size: clamp(2.2rem, 4vw, 3.6rem);
-      font-weight: 800; line-height: 1.1;
-      margin-bottom: 1.5rem;
+      color: var(--teal-deeper); font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 800; line-height: 1.1; margin-bottom: 1.25rem;
     }
     .home-hero h1 .accent { color: var(--teal); display: block; }
     .home-hero__sub {
-      color: var(--gray-600); font-size: 1.05rem;
-      line-height: 1.72; margin-bottom: 2.5rem;
+      color: var(--gray-600); font-size: 1.02rem;
+      line-height: 1.72; margin-bottom: 2rem;
     }
-    .home-hero__ctas { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
+    .home-hero__ctas { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
     .home-hero__meta {
-      display: flex; flex-wrap: wrap; gap: 1.5rem;
-      padding-top: 1.75rem;
-      border-top: 2px solid var(--gray-100);
+      display: flex; flex-wrap: wrap; gap: 1.25rem;
+      padding-top: 1.5rem; border-top: 2px solid var(--gray-100);
     }
     .hero-meta-item {
       display: flex; align-items: center; gap: 8px;
@@ -75,49 +67,35 @@
     }
     .hero-meta-item i { color: var(--orange); font-size: 1rem; }
     .hero-meta-item strong { color: var(--teal-dark); }
-
-    /* ─── HERO WAVE ─── */
+    /* wave */
     .hero-wave { margin-top: -2px; line-height: 0; }
     .hero-wave svg { display: block; }
-    @media (max-width: 860px) {
-      .home-hero__inner { grid-template-columns: 1fr; }
-      .hero-visual { display: none; }
-    }
 
     /* ─── FEATURES GRID ─── */
-    .features-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.5rem; }
+    .features-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.25rem; }
     .feat-card {
       background: var(--white); border-radius: var(--radius);
       box-shadow: var(--shadow); overflow: hidden;
-      transition: box-shadow 0.22s, transform 0.22s;
-      display: flex; flex-direction: column;
+      transition: box-shadow 0.22s, transform 0.22s; display: flex; flex-direction: column;
     }
     .feat-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-5px); }
     .feat-card__top {
-      padding: 2rem 1.75rem 1.5rem;
+      padding: 1.5rem 1.5rem 1.25rem;
       background: var(--teal-light); text-align: center;
     }
-    .feat-card__top .icon-circle { margin: 0 auto 1rem; }
-    .feat-card__body { padding: 1.5rem 1.75rem; flex: 1; display: flex; flex-direction: column; }
-    .feat-card__body h3 { color: var(--teal-dark); margin-bottom: 0.5rem; }
-    .feat-card__body p { font-size: 0.88rem; color: var(--gray-600); flex: 1; }
-    .feat-card__body a { margin-top: 1.25rem; }
+    .feat-card__top .icon-circle { margin: 0 auto 0.75rem; }
+    .feat-card__body { padding: 1.25rem 1.5rem; flex: 1; display: flex; flex-direction: column; }
+    .feat-card__body h3 { color: var(--teal-dark); margin-bottom: 0.4rem; }
+    .feat-card__body p { font-size: 0.87rem; color: var(--gray-600); flex: 1; }
+    .feat-card__body a { margin-top: 1rem; }
 
     /* ─── SPEAKER SECTION ─── */
-    .speaker-grid { display: grid; grid-template-columns: 300px 1fr; gap: 4rem; align-items: center; }
-    .speaker-photo-wrap {
-      position: relative;
-    }
+    .speaker-grid { display: grid; grid-template-columns: 280px 1fr; gap: 3.5rem; align-items: center; }
+    .speaker-photo-wrap { position: relative; }
     .speaker-photo-wrap::before {
       content: ''; position: absolute;
-      top: 20px; left: 20px; right: -20px; bottom: -20px;
-      background: var(--teal-light); border-radius: var(--radius);
-      z-index: 0;
-    }
-    .speaker-photo {
-      position: relative; z-index: 1;
-      width: 100%; aspect-ratio: 3/4; object-fit: cover;
-      border-radius: var(--radius); box-shadow: var(--shadow-lg);
+      top: 16px; left: 16px; right: -16px; bottom: -16px;
+      background: var(--teal-light); border-radius: var(--radius); z-index: 0;
     }
     .speaker-photo-placeholder {
       position: relative; z-index: 1;
@@ -128,42 +106,34 @@
       align-items: center; justify-content: center; gap: 1rem;
       color: rgba(255,255,255,0.7);
     }
-    .speaker-photo-placeholder i { font-size: 5rem; }
-    .speaker-name { font-size: 1.8rem; font-weight: 800; color: var(--teal-dark); margin-bottom: 0.25rem; }
-    .speaker-role { color: var(--orange); font-family: var(--font-h); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1.25rem; }
-    .speaker-bio { color: var(--gray-600); line-height: 1.75; margin-bottom: 1.5rem; }
-    .speaker-books { display: flex; flex-direction: column; gap: 0.5rem; }
-    .book-tag {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-size: 0.82rem; color: var(--teal-dark); font-family: var(--font-h); font-weight: 600;
-    }
+    .speaker-photo-placeholder i { font-size: 4.5rem; }
+    .speaker-name { font-size: 1.7rem; font-weight: 800; color: var(--teal-dark); margin-bottom: 0.2rem; }
+    .speaker-role { color: var(--orange); font-family: var(--font-h); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem; }
+    .speaker-bio { color: var(--gray-600); line-height: 1.75; margin-bottom: 1.25rem; }
+    .book-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 0.82rem; color: var(--teal-dark); font-family: var(--font-h); font-weight: 600; }
     .book-tag i { color: var(--teal); }
 
-    /* ─── DEPT SECTION HEADINGS ─── */
+    /* ─── DEPT section ─── */
     .dept-nums { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; margin-top: 2.5rem; }
-    .dept-num {
-      background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.82);
-      border: 1px solid rgba(255,255,255,0.12);
-      padding: 0.5rem 1rem; border-radius: 8px;
-      font-family: var(--font-h); font-size: 0.82rem; font-weight: 600;
-      text-align: center; line-height: 1.3;
-    }
-    .dept-num span { display: block; font-size: 1.2rem; font-weight: 800; color: var(--white); }
 
     @media (max-width: 960px) {
       .features-grid { grid-template-columns: repeat(2,1fr); }
       .speaker-grid { grid-template-columns: 1fr; }
-      .speaker-photo-wrap { max-width: 280px; }
+      .speaker-photo-wrap { max-width: 260px; }
+    }
+    @media (max-width: 860px) {
+      .home-hero__inner { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
     }
     @media (max-width: 640px) {
       .features-grid { grid-template-columns: 1fr; }
-      .home-hero h1 { font-size: 2.2rem; }
+      .home-hero h1 { font-size: 2rem; }
     }
   </style>
 </head>
 <body>
 
-<!-- ═══════════════════════════════ NAV ═══════════════════════════════ -->
+<!-- NAV -->
 <nav class="nav" id="nav">
   <div class="nav__inner">
     <a href="index.html" class="nav__logo" aria-label="PDN AURA 2026 – Accueil">
@@ -187,7 +157,7 @@
   <a href="ressources.html">Ressources</a>
 </div>
 
-<!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
+<!-- HERO -->
 <header class="home-hero">
   <div class="home-hero__inner">
     <div class="hero-content">
@@ -215,8 +185,13 @@
         <div class="hero-meta-item"><i class="fa-solid fa-screwdriver-wrench"></i><span><strong>5</strong> ateliers</span></div>
       </div>
     </div>
+
     <div class="hero-visual">
-      <img src="assets/logo.png" alt="PDN Promeneurs du Net Auvergne-Rhône-Alpes">
+      <div class="hero-photos" id="hero-photos">
+        <div class="hero-photo-item hero-photo-item--tall"><div class="hero-photo-placeholder"><i class="fa-solid fa-camera"></i></div></div>
+        <div class="hero-photo-item"><div class="hero-photo-placeholder"><i class="fa-solid fa-images"></i></div></div>
+        <div class="hero-photo-item"><div class="hero-photo-placeholder"><i class="fa-solid fa-photo-film"></i></div></div>
+      </div>
     </div>
   </div>
 </header>
@@ -228,7 +203,7 @@
   </svg>
 </div>
 
-<!-- ═══════════════════════════════ STATS ═══════════════════════════════ -->
+<!-- STATS -->
 <section class="stats">
   <div class="container">
     <div class="stats__row">
@@ -256,14 +231,107 @@
   </div>
 </section>
 
-<!-- wave -->
+<!-- wave teal→characters section -->
 <div style="background:var(--teal); line-height:0;">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 40" preserveAspectRatio="none" style="height:40px;width:100%;">
+    <path d="M0,40 Q360,0 720,30 Q1080,60 1440,20 L1440,40 L0,40 Z" fill="#0D4A57"/>
+  </svg>
+</div>
+
+<!-- CHARACTERS / FUN SECTION -->
+<section class="char-section">
+  <div class="container">
+    <div class="char-section__inner">
+      <div class="char-section__illus">
+        <svg viewBox="0 0 420 200" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;" aria-hidden="true">
+          <!-- Decorative blobs -->
+          <circle cx="210" cy="100" r="170" fill="rgba(255,255,255,0.03)"/>
+          <!-- Person 1 – jeune avec téléphone -->
+          <g transform="translate(22,18)">
+            <rect x="22" y="130" width="15" height="48" rx="7" fill="rgba(255,255,255,0.25)"/>
+            <rect x="45" y="130" width="15" height="48" rx="7" fill="rgba(255,255,255,0.25)"/>
+            <rect x="8" y="74" width="64" height="64" rx="18" fill="#E8621A"/>
+            <rect x="-3" y="80" width="13" height="42" rx="6" fill="#E8621A"/>
+            <rect x="72" y="80" width="13" height="42" rx="6" fill="#E8621A"/>
+            <rect x="80" y="97" width="16" height="24" rx="4" fill="rgba(255,255,255,0.9)"/>
+            <rect x="82" y="99" width="12" height="18" rx="2" fill="rgba(27,109,126,0.7)"/>
+            <circle cx="40" cy="48" r="30" fill="#E8621A"/>
+            <path d="M12 40 Q14 16 40 14 Q66 16 68 40" fill="rgba(8,46,56,0.6)"/>
+            <circle cx="29" cy="45" r="4" fill="white" opacity="0.9"/>
+            <circle cx="51" cy="45" r="4" fill="white" opacity="0.9"/>
+            <path d="M28 58 Q40 67 52 58" stroke="white" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          </g>
+          <!-- Person 2 – coordinatrice avec laptop (center, un peu plus grande) -->
+          <g transform="translate(162,8)">
+            <rect x="24" y="140" width="16" height="50" rx="8" fill="rgba(255,255,255,0.2)"/>
+            <rect x="50" y="140" width="16" height="50" rx="8" fill="rgba(255,255,255,0.2)"/>
+            <rect x="8" y="82" width="72" height="66" rx="18" fill="rgba(255,255,255,0.18)"/>
+            <rect x="-4" y="88" width="13" height="50" rx="6" fill="rgba(255,255,255,0.18)"/>
+            <rect x="-22" y="106" width="30" height="22" rx="5" fill="rgba(255,255,255,0.9)"/>
+            <rect x="-20" y="108" width="26" height="16" rx="3" fill="rgba(27,109,126,0.65)"/>
+            <rect x="81" y="88" width="13" height="50" rx="6" fill="rgba(255,255,255,0.18)"/>
+            <circle cx="44" cy="54" r="34" fill="rgba(255,255,255,0.22)" stroke="rgba(255,255,255,0.35)" stroke-width="2"/>
+            <circle cx="44" cy="54" r="30" fill="#1B6D7E"/>
+            <path d="M16 46 Q18 18 44 16 Q70 18 72 46" fill="rgba(8,46,56,0.55)"/>
+            <circle cx="33" cy="51" r="4" fill="white" opacity="0.9"/>
+            <circle cx="55" cy="51" r="4" fill="white" opacity="0.9"/>
+            <path d="M32 64 Q44 73 56 64" stroke="white" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          </g>
+          <!-- Person 3 – partenaire -->
+          <g transform="translate(304,22)">
+            <rect x="19" y="124" width="15" height="46" rx="7" fill="rgba(255,255,255,0.25)"/>
+            <rect x="42" y="124" width="15" height="46" rx="7" fill="rgba(255,255,255,0.25)"/>
+            <rect x="6" y="72" width="64" height="60" rx="18" fill="#5C9EAD"/>
+            <rect x="-4" y="78" width="12" height="40" rx="6" fill="#5C9EAD"/>
+            <rect x="70" y="78" width="12" height="40" rx="6" fill="#5C9EAD"/>
+            <circle cx="38" cy="48" r="30" fill="#5C9EAD"/>
+            <path d="M10 40 Q12 16 38 14 Q64 16 66 40" fill="rgba(8,46,56,0.55)"/>
+            <circle cx="27" cy="45" r="4" fill="white" opacity="0.9"/>
+            <circle cx="49" cy="45" r="4" fill="white" opacity="0.9"/>
+            <path d="M26 57 Q38 66 50 57" stroke="white" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          </g>
+          <!-- Bulle de dialogue au-dessus de la coordinatrice -->
+          <rect x="185" y="4" width="96" height="42" rx="13" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+          <polygon points="212,46 228,46 220,58" fill="rgba(255,255,255,0.15)"/>
+          <text x="233" y="22" text-anchor="middle" fill="white" font-family="Montserrat,sans-serif" font-size="11" font-weight="700">PDN AURA</text>
+          <text x="233" y="37" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-family="sans-serif" font-size="9">Lyon · 30 avril 2026</text>
+          <!-- Étoiles / confettis -->
+          <circle cx="14" cy="88" r="7" fill="rgba(255,255,255,0.15)"/>
+          <circle cx="404" cy="66" r="9" fill="rgba(255,255,255,0.12)"/>
+          <circle cx="10" cy="170" r="5" fill="rgba(232,98,26,0.4)"/>
+          <circle cx="408" cy="160" r="7" fill="rgba(232,98,26,0.35)"/>
+          <circle cx="145" cy="182" r="4" fill="rgba(255,255,255,0.2)"/>
+          <circle cx="275" cy="185" r="5" fill="rgba(92,158,173,0.5)"/>
+        </svg>
+      </div>
+      <div class="char-section__text">
+        <div class="section-label" style="color:var(--orange-mid);margin-bottom:.6rem;">
+          <i class="fa-solid fa-people-group"></i> Une communauté régionale
+        </div>
+        <h2>Ensemble, on va plus loin&nbsp;!</h2>
+        <p>Pour la première fois, tous les Promeneurs du Net d'Auvergne-Rhône-Alpes se sont retrouvés pour partager leurs pratiques, construire des outils communs et renforcer le réseau régional.</p>
+        <div class="char-section__stats">
+          <div class="char-stat"><div class="char-stat__n">150</div><div class="char-stat__l">Participants</div></div>
+          <div class="char-stat"><div class="char-stat__n">12</div><div class="char-stat__l">Départements</div></div>
+          <div class="char-stat"><div class="char-stat__n">5</div><div class="char-stat__l">Ateliers</div></div>
+          <div class="char-stat"><div class="char-stat__n">1</div><div class="char-stat__l">1ère régionale</div></div>
+        </div>
+        <div style="margin-top:1.75rem;">
+          <a href="ateliers.html" class="btn btn--outline-white btn--sm"><i class="fa-solid fa-people-group"></i> Voir les ateliers</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- wave -->
+<div style="background:var(--teal-deeper); line-height:0;">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 40" preserveAspectRatio="none" style="height:40px;width:100%;">
     <path d="M0,0 Q720,40 1440,0 L1440,40 L0,40 Z" fill="#F8FAFB"/>
   </svg>
 </div>
 
-<!-- ═══════════════════════════════ DISCOVER ═══════════════════════════════ -->
+<!-- DISCOVER (features) -->
 <section class="section section-bg-gray">
   <div class="container">
     <div class="section-header section-header--center">
@@ -275,7 +343,7 @@
       <div class="feat-card">
         <div class="feat-card__top">
           <div class="icon-circle icon-circle--teal icon-circle--lg"><i class="fa-solid fa-list-check"></i></div>
-          <div class="chip chip--teal" style="margin-top:0.75rem;">Journée</div>
+          <div class="chip chip--teal" style="margin-top:0.6rem;">Journée</div>
         </div>
         <div class="feat-card__body">
           <h3>Programme</h3>
@@ -286,7 +354,7 @@
       <div class="feat-card">
         <div class="feat-card__top">
           <div class="icon-circle icon-circle--orange icon-circle--lg"><i class="fa-solid fa-people-group"></i></div>
-          <div class="chip chip--orange" style="margin-top:0.75rem;">5 ateliers</div>
+          <div class="chip chip--orange" style="margin-top:0.6rem;">5 ateliers</div>
         </div>
         <div class="feat-card__body">
           <h3>Ateliers thématiques</h3>
@@ -297,7 +365,7 @@
       <div class="feat-card">
         <div class="feat-card__top">
           <div class="icon-circle icon-circle--teal icon-circle--lg" style="background:var(--teal-mid);"><i class="fa-solid fa-camera"></i></div>
-          <div class="chip chip--teal" style="margin-top:0.75rem;">Photos &amp; vidéos</div>
+          <div class="chip chip--teal" style="margin-top:0.6rem;">Photos &amp; vidéos</div>
         </div>
         <div class="feat-card__body">
           <h3>Galerie</h3>
@@ -307,8 +375,8 @@
       </div>
       <div class="feat-card">
         <div class="feat-card__top">
-          <div class="icon-circle icon-circle--orange icon-circle--lg" style="background:#5C9EAD;"><i class="fa-solid fa-book-open"></i></div>
-          <div class="chip chip--teal" style="margin-top:0.75rem;">Liens &amp; docs</div>
+          <div class="icon-circle icon-circle--lg" style="background:#5C9EAD;color:white;"><i class="fa-solid fa-book-open"></i></div>
+          <div class="chip chip--teal" style="margin-top:0.6rem;">Liens &amp; docs</div>
         </div>
         <div class="feat-card__body">
           <h3>Ressources</h3>
@@ -320,10 +388,26 @@
   </div>
 </section>
 
-<!-- ═══════════════════════════════ SPEAKER ═══════════════════════════════ -->
-<section class="section section-bg-white">
+<!-- PHOTO HIGHLIGHTS (dynamique) -->
+<section class="section section-bg-white" id="home-photos-section" style="display:none;">
   <div class="container">
-    <div class="section-label"><i class="fa-solid fa-microphone-lines"></i> Conférence plénière</div>
+    <div class="section-header">
+      <div class="section-label"><i class="fa-solid fa-camera-retro"></i> Galerie</div>
+      <h2 class="section-title">Les temps forts en images</h2>
+      <p class="section-sub">Quelques moments de la journée. <a href="galerie.html" style="color:var(--teal);font-weight:700;">Voir toute la galerie →</a></p>
+    </div>
+    <div id="home-photo-mosaic" class="home-photo-grid"></div>
+    <div style="text-align:center;margin-top:2rem;">
+      <a href="galerie.html" class="btn btn--teal"><i class="fa-solid fa-images"></i> Album complet</a>
+      <a href="https://photos.app.goo.gl/tYG1qCNHi49rzSn48" target="_blank" rel="noopener" class="btn btn--outline" style="margin-left:.75rem;"><i class="fa-brands fa-google"></i> Google Photos</a>
+    </div>
+  </div>
+</section>
+
+<!-- SPEAKER -->
+<section class="section" style="background:var(--gray-50);">
+  <div class="container">
+    <div class="section-label" style="margin-bottom:1.5rem;"><i class="fa-solid fa-microphone-lines"></i> Conférence plénière</div>
     <div class="speaker-grid">
       <div class="speaker-photo-wrap">
         <div class="speaker-photo-placeholder">
@@ -332,7 +416,7 @@
         </div>
       </div>
       <div>
-        <div class="chip chip--orange" style="margin-bottom:1rem;">Conférencier invité</div>
+        <div class="chip chip--orange" style="margin-bottom:0.85rem;">Conférencier invité</div>
         <div class="speaker-name">Jocelyn Lachance</div>
         <div class="speaker-role">Sociologue · Université de Pau et des Pays de l'Adour</div>
         <p class="speaker-bio">
@@ -345,27 +429,25 @@
           <strong>« Les adolescents et les réseaux sociaux : entre risques et ressources »</strong>,
           ouvrant la réflexion sur le rôle singulier des Promeneurs du Net dans l'accompagnement éducatif des jeunes en ligne.
         </p>
-        <div class="speaker-books">
+        <div style="display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1.5rem;">
           <div class="book-tag"><i class="fa-solid fa-book"></i> <em>Photo de soi, photo de jeune</em> (2016)</div>
           <div class="book-tag"><i class="fa-solid fa-book"></i> <em>Les écrans, la nuit</em> (2019)</div>
           <div class="book-tag"><i class="fa-solid fa-book"></i> <em>Adolescence et risques numériques</em> (2021)</div>
         </div>
-        <div style="margin-top:2rem;">
-          <a href="programme.html#conference" class="btn btn--teal"><i class="fa-solid fa-circle-play"></i> Voir la conférence dans le programme</a>
-        </div>
+        <a href="programme.html#conference" class="btn btn--teal"><i class="fa-solid fa-circle-play"></i> Voir la conférence dans le programme</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════ QUOTE ═══════════════════════════════ -->
+<!-- QUOTES -->
 <section class="section section-bg-teal-light">
   <div class="container--narrow">
-    <div class="text-center" style="margin-bottom:2.5rem;">
+    <div class="text-center" style="margin-bottom:2rem;">
       <div class="section-label"><i class="fa-solid fa-comment-dots"></i> Paroles de participants</div>
       <h2 class="section-title">Ce que cette journée a changé</h2>
     </div>
-    <div class="quote-block" style="margin-bottom:1.5rem;">
+    <div class="quote-block" style="margin-bottom:1.25rem;">
       <p>« Enfin une rencontre à l'échelle régionale ! On se sent moins isolés dans notre pratique, et les ateliers m'ont donné des outils concrets que je vais pouvoir réutiliser dès la semaine prochaine. »</p>
       <cite>— Promeneur du Net, département du Rhône</cite>
     </div>
@@ -376,7 +458,7 @@
   </div>
 </section>
 
-<!-- ═══════════════════════════════ DEPARTMENTS ═══════════════════════════════ -->
+<!-- DEPARTMENTS -->
 <section class="section" style="background:var(--teal-light);">
   <div class="container">
     <div class="section-header section-header--center">
@@ -384,7 +466,7 @@
       <h2 class="section-title" style="color:var(--teal-deeper);">12 départements représentés</h2>
       <p class="section-sub">Tous les départements d'Auvergne-Rhône-Alpes ont répondu présent pour cette première rencontre régionale.</p>
     </div>
-    <div class="dept-grid" style="margin-top:2rem;">
+    <div class="dept-grid" style="margin-top:1.75rem;">
       <div class="dept-card"><div class="dept-card__n">01</div><div class="dept-card__name">Ain</div></div>
       <div class="dept-card"><div class="dept-card__n">03</div><div class="dept-card__name">Allier</div></div>
       <div class="dept-card"><div class="dept-card__n">07</div><div class="dept-card__name">Ardèche</div></div>
@@ -398,7 +480,7 @@
       <div class="dept-card"><div class="dept-card__n">73</div><div class="dept-card__name">Savoie</div></div>
       <div class="dept-card"><div class="dept-card__n">74</div><div class="dept-card__name">Hte-Savoie</div></div>
     </div>
-    <div style="display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-top:2rem;">
+    <div style="display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-top:1.75rem;">
       <span class="chip chip--teal"><i class="fa-solid fa-building"></i> CAF AURA</span>
       <span class="chip chip--teal">DREETS</span>
       <span class="chip chip--teal">Région AURA</span>
@@ -410,7 +492,15 @@
   </div>
 </section>
 
-<!-- ═══════════════════════════════ FOOTER ═══════════════════════════════ -->
+<!-- PARTNERS STRIP -->
+<section class="partners-strip" id="partners-section" style="display:none;">
+  <div class="container">
+    <div class="partners-strip__title">Partenaires de la rencontre</div>
+    <div id="partners-logos" class="partners-logos"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
 <footer class="footer">
   <div class="container">
     <div class="footer__cols">
@@ -452,10 +542,57 @@ const burger = document.getElementById('burger');
 const mobileNav = document.getElementById('mobile-nav');
 burger.addEventListener('click', () => mobileNav.classList.toggle('open'));
 document.addEventListener('click', e => {
-  if (!e.target.closest('#nav') && !e.target.closest('#mobile-nav')) {
-    mobileNav.classList.remove('open');
-  }
+  if (!e.target.closest('#nav') && !e.target.closest('#mobile-nav')) mobileNav.classList.remove('open');
 });
+
+function getInitials(name) {
+  return name.split(/[\s\-\/]+/).map(w => w[0] || '').join('').substring(0,3).toUpperCase();
+}
+
+async function initHomePage() {
+  try {
+    const r = await fetch('data/content.json?t=' + Date.now());
+    if (!r.ok) return;
+    const d = await r.json();
+
+    // Hero photos mosaic
+    const photos = d.gallery || [];
+    if (photos.length >= 2) {
+      const slots = photos.slice(0, 3);
+      document.getElementById('hero-photos').innerHTML =
+        `<div class="hero-photo-item hero-photo-item--tall">
+          <img src="${slots[0].url}" alt="${slots[0].caption||''}" loading="lazy">
+        </div>` +
+        (slots[1] ? `<div class="hero-photo-item"><img src="${slots[1].url}" alt="${slots[1].caption||''}" loading="lazy"></div>` : '') +
+        (slots[2] ? `<div class="hero-photo-item"><img src="${slots[2].url}" alt="${slots[2].caption||''}" loading="lazy"></div>` : '');
+    }
+
+    // Photo highlights section
+    if (photos.length > 0) {
+      document.getElementById('home-photos-section').style.display = '';
+      document.getElementById('home-photo-mosaic').innerHTML = photos.slice(0,6).map(p => `
+        <div class="home-photo-grid-item" onclick="window.location='galerie.html'" tabindex="0" role="link" aria-label="Voir la galerie">
+          <img src="${p.url}" alt="${p.caption||''}" loading="lazy">
+          <div class="home-photo-grid-item__cap">${p.caption||''}</div>
+        </div>`).join('');
+    }
+
+    // Partners strip
+    const partners = d.partners || [];
+    if (partners.length > 0) {
+      document.getElementById('partners-section').style.display = '';
+      document.getElementById('partners-logos').innerHTML = partners.map(p => `
+        <a href="${p.url||'#'}" target="_blank" rel="noopener" class="partner-logo" title="${p.fullName||p.name}">
+          ${p.logoUrl
+            ? `<img src="${p.logoUrl}" alt="${p.name}" class="partner-logo__img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="partner-logo__abbr" style="display:none">${getInitials(p.name)}</div>`
+            : `<div class="partner-logo__abbr">${getInitials(p.name)}</div>`
+          }
+          <span class="partner-logo__name">${p.name}</span>
+        </a>`).join('');
+    }
+  } catch(e) {}
+}
+initHomePage();
 </script>
 </body>
 </html>

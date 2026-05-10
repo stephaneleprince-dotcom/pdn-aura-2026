@@ -195,6 +195,30 @@
   </div>
 </div>
 
+<!-- EDIT PHOTO MODAL -->
+<div class="modal-overlay" id="editPhotoModal">
+  <div class="modal-box">
+    <h3><i class="fas fa-pencil" style="color:var(--teal);margin-right:8px;"></i>Modifier les informations</h3>
+    <input type="hidden" id="editPhotoIndex">
+    <div class="form-group">
+      <label>Titre de la photo</label>
+      <input type="text" id="editPhotoTitle" placeholder="Titre affiché dans la galerie...">
+    </div>
+    <div class="form-group">
+      <label>Description</label>
+      <textarea id="editPhotoDescription" placeholder="Description détaillée (visible en survol)..." rows="3"></textarea>
+    </div>
+    <div class="form-group">
+      <label>Légende courte (overlay)</label>
+      <input type="text" id="editPhotoCaption" placeholder="Texte bref affiché en bas de photo...">
+    </div>
+    <div style="display:flex;gap:.75rem;margin-top:1.25rem;">
+      <button class="btn btn--teal" style="flex:1;" onclick="confirmEditPhoto()"><i class="fas fa-check"></i> Enregistrer</button>
+      <button class="btn btn--outline" onclick="document.getElementById('editPhotoModal').classList.remove('open')">Annuler</button>
+    </div>
+  </div>
+</div>
+
 <!-- ADMIN PANEL -->
 <div id="adminPanel" class="admin-wrap" style="display:none;">
 
@@ -210,6 +234,7 @@
       <a onclick="showPanel('photos')" id="tab-photos" class="active"><i class="fas fa-camera"></i> Photos</a>
       <a onclick="showPanel('videos')" id="tab-videos"><i class="fas fa-video"></i> Vidéos</a>
       <a onclick="showPanel('resources')" id="tab-resources"><i class="fas fa-link"></i> Ressources</a>
+      <a onclick="showPanel('partners')" id="tab-partners"><i class="fas fa-handshake"></i> Partenaires</a>
       <a onclick="showPanel('settings')" id="tab-settings"><i class="fas fa-gear"></i> Paramètres</a>
     </nav>
     <div class="sidebar__footer">
@@ -329,6 +354,48 @@
         <button class="btn btn--teal" onclick="addResource()"><i class="fas fa-plus"></i> Ajouter</button>
       </div>
       <div id="resourceList" class="items-list"></div>
+    </div>
+
+    <!-- PARTNERS PANEL -->
+    <div id="panel-partners" class="panel">
+      <div class="main__header">
+        <h2><i class="fas fa-handshake" style="color:var(--teal);margin-right:.5rem;"></i>Logos partenaires</h2>
+        <p>Les partenaires s'affichent en bas de chaque page du site. Ajoutez un logo ou une URL d'image.</p>
+      </div>
+      <div class="add-form">
+        <h3><i class="fas fa-plus-circle"></i> Ajouter un partenaire</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nom court * (ex&nbsp;: CNAF)</label>
+            <input type="text" id="partnerName" placeholder="CNAF">
+          </div>
+          <div class="form-group">
+            <label>Nom complet</label>
+            <input type="text" id="partnerFullName" placeholder="Caisse Nationale des Allocations Familiales">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>URL du site</label>
+            <input type="url" id="partnerUrl" placeholder="https://www.cnaf.fr">
+          </div>
+          <div class="form-group">
+            <label>URL du logo (optionnel)</label>
+            <input type="url" id="partnerLogoUrl" placeholder="https://...logo.png">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Ou importer un fichier logo</label>
+          <div class="drop-zone" onclick="document.getElementById('partnerLogoFile').click()" style="padding:1.25rem;">
+            <i class="fas fa-image"></i>
+            <p>Cliquez pour choisir un fichier logo (PNG recommandé)</p>
+            <input type="file" id="partnerLogoFile" accept="image/*" style="display:none" onchange="handlePartnerLogoFile(this)">
+          </div>
+          <div id="partnerLogoPreview"></div>
+        </div>
+        <button class="btn btn--teal" onclick="addPartner()"><i class="fas fa-plus"></i> Ajouter le partenaire</button>
+      </div>
+      <div id="partnerList" class="items-list"></div>
     </div>
 
     <!-- SETTINGS PANEL -->
@@ -497,7 +564,8 @@ async function uploadImageFile(blob, filename, barId, wrapId) {
 /* ══════════════════════════════════════════
    STATE & INIT
 ══════════════════════════════════════════ */
-let data = { gallery: [], videos: [], resources: [] };
+let data = { gallery: [], videos: [], resources: [], partners: [] };
+let partnerLogoFile = null;
 let selectedFiles = [];
 let logoFile = null;
 let replaceUploadFile = null;
@@ -510,6 +578,7 @@ async function init() {
   data.gallery   = data.gallery   || [];
   data.videos    = data.videos    || [];
   data.resources = data.resources || [];
+  data.partners  = data.partners  || [];
   renderAll();
 }
 
@@ -538,7 +607,7 @@ function switchReplaceTab(t) {
 /* ══════════════════════════════════════════
    RENDER
 ══════════════════════════════════════════ */
-function renderAll() { renderPhotos(); renderVideos(); renderResources(); }
+function renderAll() { renderPhotos(); renderVideos(); renderResources(); renderPartners(); }
 
 function renderPhotos() {
   const el = document.getElementById('photoList');
@@ -550,10 +619,12 @@ function renderPhotos() {
         <div class="no-img" style="display:none;"><i class="fas fa-image"></i></div>
       </div>
       <div class="item-card__body">
-        <strong>${p.caption || 'Photo '+(i+1)}</strong>
+        <strong>${p.title || p.caption || 'Photo '+(i+1)}</strong>
         <span title="${p.url}">${p.url}</span>
+        ${p.description ? `<span style="font-size:.72rem;color:var(--gray-600);margin-top:.15rem;">${p.description.substring(0,80)}${p.description.length>80?'…':''}</span>` : ''}
       </div>
       <div class="item-card__actions">
+        <button class="btn btn--outline btn--sm" onclick="openEditPhotoModal(${i})" title="Modifier titre/description"><i class="fas fa-pencil"></i></button>
         <button class="btn btn--amber btn--sm" onclick="openReplaceModal(${i})"><i class="fas fa-arrows-rotate"></i> Remplacer</button>
         <button class="btn btn--red btn--sm" onclick="removePhoto(${i})"><i class="fas fa-trash"></i></button>
       </div>
@@ -776,6 +847,99 @@ async function uploadLogo() {
   } finally {
     btn.disabled=false; btn.innerHTML='<i class="fas fa-upload"></i> Mettre à jour le logo';
   }
+}
+
+/* ══════════════════════════════════════════
+   EDIT PHOTO MODAL
+══════════════════════════════════════════ */
+function openEditPhotoModal(i) {
+  const p = data.gallery[i];
+  document.getElementById('editPhotoIndex').value = i;
+  document.getElementById('editPhotoTitle').value = p.title || '';
+  document.getElementById('editPhotoDescription').value = p.description || '';
+  document.getElementById('editPhotoCaption').value = p.caption || '';
+  document.getElementById('editPhotoModal').classList.add('open');
+}
+async function confirmEditPhoto() {
+  const i = parseInt(document.getElementById('editPhotoIndex').value);
+  const title = document.getElementById('editPhotoTitle').value.trim();
+  const description = document.getElementById('editPhotoDescription').value.trim();
+  const caption = document.getElementById('editPhotoCaption').value.trim();
+  const old = {...data.gallery[i]};
+  data.gallery[i] = { ...data.gallery[i], title, description, caption };
+  try {
+    await autoSave();
+    renderPhotos();
+    document.getElementById('editPhotoModal').classList.remove('open');
+    showToast('Informations mises à jour !', 'ok');
+  } catch(e) { data.gallery[i] = old; renderPhotos(); }
+}
+
+/* ══════════════════════════════════════════
+   PARTNERS
+══════════════════════════════════════════ */
+function renderPartners() {
+  const el = document.getElementById('partnerList');
+  if (!el) return;
+  if (!data.partners.length) { el.innerHTML = '<div class="items-empty"><i class="fas fa-handshake"></i><p>Aucun partenaire. Ajoutez-en ci-dessus.</p></div>'; return; }
+  el.innerHTML = data.partners.map((p,i) => `
+    <div class="item-card">
+      <div class="item-card__thumb">
+        ${p.logoUrl
+          ? `<img src="${p.logoUrl}" alt="${p.name}" style="width:100%;height:100%;object-fit:contain;padding:4px;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
+          : ''
+        }
+        <div class="no-img" style="${p.logoUrl ? 'display:none' : 'display:flex'}"><i class="fas fa-building" style="font-size:1.2rem;color:var(--teal-light);"></i></div>
+      </div>
+      <div class="item-card__body">
+        <strong>${p.name}</strong>
+        ${p.fullName ? `<span>${p.fullName}</span>` : ''}
+        ${p.url ? `<span style="font-size:.72rem;">${p.url}</span>` : ''}
+      </div>
+      <div class="item-card__actions">
+        ${p.url ? `<a href="${p.url}" target="_blank" class="btn btn--outline btn--sm"><i class="fas fa-eye"></i></a>` : ''}
+        <button class="btn btn--red btn--sm" onclick="removePartner(${i})"><i class="fas fa-trash"></i></button>
+      </div>
+    </div>`).join('');
+}
+
+function handlePartnerLogoFile(input) {
+  const file = input.files[0]; if (!file) return;
+  partnerLogoFile = file;
+  document.getElementById('partnerLogoPreview').innerHTML = `<div class="file-preview" style="margin-top:.75rem;"><img src="${URL.createObjectURL(file)}" alt="" style="height:48px;width:auto;object-fit:contain;background:#f0f0f0;border-radius:6px;"><div class="info"><strong>${file.name}</strong></div></div>`;
+}
+
+async function addPartner() {
+  const name = document.getElementById('partnerName').value.trim();
+  if (!name) { showToast('Nom court obligatoire.', 'err'); return; }
+  const fullName = document.getElementById('partnerFullName').value.trim();
+  const url = document.getElementById('partnerUrl').value.trim();
+  let logoUrl = document.getElementById('partnerLogoUrl').value.trim();
+
+  if (partnerLogoFile) {
+    try {
+      const blob = await resizeImage(partnerLogoFile, 400);
+      const ts = Date.now();
+      const filename = `${ts}_${partnerLogoFile.name.replace(/[^a-z0-9._-]/gi,'_').toLowerCase()}`;
+      logoUrl = await uploadImageFile(blob, filename, null, null);
+    } catch(e) { showToast('Erreur upload logo : ' + e.message, 'err'); return; }
+  }
+
+  data.partners.push({ id: Date.now().toString(), name, fullName, url, logoUrl });
+  try {
+    await autoSave(); renderPartners();
+    ['partnerName','partnerFullName','partnerUrl','partnerLogoUrl'].forEach(x => document.getElementById(x).value='');
+    document.getElementById('partnerLogoPreview').innerHTML = '';
+    partnerLogoFile = null;
+    showToast('Partenaire ajouté !', 'ok');
+  } catch(e) { data.partners.pop(); }
+}
+
+async function removePartner(i) {
+  if (!confirm('Supprimer ce partenaire ?')) return;
+  const r = data.partners.splice(i,1);
+  try { await autoSave(); renderPartners(); showToast('Partenaire supprimé.', 'ok'); }
+  catch(e) { data.partners.splice(i,0,...r); renderPartners(); }
 }
 
 /* ══════════════════════════════════════════

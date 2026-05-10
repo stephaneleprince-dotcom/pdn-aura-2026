@@ -41,6 +41,7 @@
     .vid-empty { text-align: center; padding: 3rem; color: var(--gray-600); }
     .vid-empty i { font-size: 3rem; color: var(--teal-light); display: block; margin-bottom: 1rem; }
     .vid-empty h3 { color: var(--teal-mid); margin-bottom: 0.5rem; }
+    .gal-item__desc { display: block; font-size: 0.76rem; color: rgba(255,255,255,0.78); margin-top: 0.25rem; line-height: 1.4; }
   </style>
 </head>
 <body>
@@ -128,7 +129,16 @@
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Vue agrandie">
   <button class="lightbox__close" id="lb-close" aria-label="Fermer"><i class="fa-solid fa-xmark"></i></button>
   <img id="lb-img" src="" alt="">
+  <div id="lb-caption" style="position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.65);color:white;padding:.6rem 1.25rem;border-radius:8px;text-align:center;max-width:80%;font-size:.88rem;line-height:1.5;display:none;"></div>
 </div>
+
+<!-- PARTNERS STRIP -->
+<section class="partners-strip" id="partners-section" style="display:none;">
+  <div class="container">
+    <div class="partners-strip__title">Partenaires de la rencontre</div>
+    <div id="partners-logos" class="partners-logos"></div>
+  </div>
+</section>
 
 <!-- FOOTER -->
 <footer class="footer">
@@ -185,9 +195,11 @@ document.getElementById('lb-close').addEventListener('click', () => lightbox.cla
 lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.classList.remove('on'); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') lightbox.classList.remove('on'); });
 
-function openLightbox(src, alt) {
+function openLightbox(src, alt, desc) {
   lbImg.src = src;
   lbImg.alt = alt || '';
+  const cap = document.getElementById('lb-caption');
+  if (cap) { cap.innerHTML = alt ? `<strong>${alt}</strong>${desc ? '<br><span>'+desc+'</span>' : ''}` : ''; cap.style.display = alt ? '' : 'none'; }
   lightbox.classList.add('on');
 }
 
@@ -215,11 +227,12 @@ async function loadGallery() {
     countEl.innerHTML = `<strong>${photos.length}</strong> photo${photos.length > 1 ? 's' : ''} dans la galerie`;
 
     grid.innerHTML = photos.map(p => `
-      <div class="gal-item" tabindex="0" role="button" aria-label="Agrandir : ${p.caption || 'Photo'}"
-           onclick="openLightbox('${p.url}','${(p.caption||'').replace(/'/g,"\\'")}')">
-        <img src="${p.url}" alt="${p.caption || ''}" loading="lazy">
+      <div class="gal-item" tabindex="0" role="button" aria-label="Agrandir : ${p.title || p.caption || 'Photo'}"
+           onclick="openLightbox('${p.url}','${(p.title||p.caption||'').replace(/'/g,"\\'")}','${(p.description||'').replace(/'/g,"\\'")}')">
+        <img src="${p.url}" alt="${p.title || p.caption || ''}" loading="lazy">
         <div class="gal-item__overlay">
-          ${p.caption ? `<span class="gal-item__cap">${p.caption}</span>` : ''}
+          ${(p.title||p.caption) ? `<span class="gal-item__cap">${p.title||p.caption}</span>` : ''}
+          ${p.description ? `<span class="gal-item__desc">${p.description}</span>` : ''}
         </div>
       </div>`).join('');
 
@@ -252,6 +265,9 @@ async function loadGallery() {
 }
 
 loadGallery();
+
+function getInitials(n){return n.split(/[\s\-\/]+/).map(w=>w[0]||'').join('').substring(0,3).toUpperCase();}
+(async()=>{try{const r=await fetch('data/content.json');if(!r.ok)return;const d=await r.json();const p=d.partners||[];if(!p.length)return;document.getElementById('partners-section').style.display='';document.getElementById('partners-logos').innerHTML=p.map(p=>`<a href="${p.url||'#'}" target="_blank" rel="noopener" class="partner-logo" title="${p.fullName||p.name}">${p.logoUrl?`<img src="${p.logoUrl}" alt="${p.name}" class="partner-logo__img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="partner-logo__abbr" style="display:none">${getInitials(p.name)}</div>`:`<div class="partner-logo__abbr">${getInitials(p.name)}</div>`}<span class="partner-logo__name">${p.name}</span></a>`).join('');}catch(e){}})();
 </script>
 </body>
 </html>
