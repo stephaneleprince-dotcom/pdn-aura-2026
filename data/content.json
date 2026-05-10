@@ -212,6 +212,13 @@
       "url": "https://e-enfance.org",
       "description": "Association spécialisée dans la protection des mineurs sur internet. Numéro national 3018 pour le cyberharcèlement.",
       "category": "Prévention"
+    },
+    {
+      "id": "1778433445350",
+      "title": "Darons connectés",
+      "url": "https://lesbases.anct.gouv.fr/ressources/darons-connectes",
+      "description": "Présenté lors du NEC 07, Darons Connectés est un jeu, pour jouer en famille, ou entre parents, conçu par la coordination Promeneurs du Net 07. Basé sur le principe du jeu de l'oie, ce jeu propose quatre types de cartes : pour aborder et expliquer les usages des jeunes à travers les mots du numérique, pour démonter les stéréotypes et comprendre les besoins des enfants, pour apprendre et comprendre les enjeux en liens avec nos usages numériques pour échanger de pratique entre tous les joueurs sans culpabilisation, ni stigmatisation.",
+      "category": ""
     }
   ],
   "partners": [
