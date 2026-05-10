@@ -1,13 +1,768 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Quiz IA familles</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script type="module" crossorigin src="./assets/index-DpVQqVKL.js"></script>
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Journée Régionale PDN AURA – 30 avril 2026</title>
+  <meta name="description" content="Retour sur la première Rencontre Régionale des Promeneurs du Net Auvergne-Rhône-Alpes, 30 avril 2026, Lyon.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --teal: #1B6D7E;
+      --teal-dark: #0D4A57;
+      --teal-light: #E8F4F7;
+      --teal-mid: #5C9EAD;
+      --orange: #E8621A;
+      --orange-light: #FFF3EC;
+      --orange-mid: #F0935A;
+      --white: #FFFFFF;
+      --gray-100: #F8FAFB;
+      --gray-200: #EEF2F4;
+      --gray-600: #5A6E75;
+      --text: #1A2E35;
+      --shadow: 0 4px 20px rgba(27,109,126,0.12);
+      --shadow-hover: 0 8px 30px rgba(27,109,126,0.22);
+      --radius: 12px;
+      --font-h: 'Montserrat', sans-serif;
+      --font-b: 'Open Sans', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-b); color: var(--text); background: var(--white); line-height: 1.7; }
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+    h1, h2, h3, h4 { font-family: var(--font-h); line-height: 1.2; }
+    h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; }
+    h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 700; }
+    h3 { font-size: 1.1rem; font-weight: 600; }
+    p { margin-bottom: 1rem; }
+    p:last-child { margin-bottom: 0; }
+
+    .container { max-width: 1180px; margin: 0 auto; padding: 0 1.5rem; }
+    .section { padding: 80px 0; }
+    .section--teal { background: var(--teal); color: var(--white); }
+    .section--teal-dark { background: var(--teal-dark); color: var(--white); }
+    .section--teal-light { background: var(--teal-light); }
+    .section--gray { background: var(--gray-100); }
+    .section-label {
+      font-family: var(--font-h); font-size: 0.72rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.18em; color: var(--orange);
+      display: block; margin-bottom: 0.4rem;
+    }
+    .section--teal .section-label, .section--teal-dark .section-label { color: var(--orange-mid); }
+    .section-header { margin-bottom: 3rem; }
+    .section-subtitle { color: var(--gray-600); font-size: 1.02rem; max-width: 620px; margin-top: 0.5rem; }
+    .section--teal .section-subtitle, .section--teal-dark .section-subtitle { color: rgba(255,255,255,0.75); }
+    .section--teal h2, .section--teal-dark h2 { color: var(--white); }
+
+    /* NAV */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      background: var(--teal-dark);
+      height: 64px; display: flex; align-items: center;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.25);
+    }
+    .nav__inner {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 1.5rem;
+    }
+    .nav__logo {
+      display: flex; align-items: center; gap: 12px;
+      color: var(--white); font-family: var(--font-h); font-weight: 700; font-size: 1rem;
+    }
+    .nav__logo svg { width: 38px; height: 34px; flex-shrink: 0; }
+    .nav__logo-sub { font-size: 0.65rem; font-weight: 400; opacity: 0.65; display: block; line-height: 1.2; }
+    .nav__links { display: flex; gap: 1.75rem; align-items: center; }
+    .nav__links a {
+      color: rgba(255,255,255,0.82); font-size: 0.85rem;
+      font-weight: 600; font-family: var(--font-h); transition: color 0.2s;
+    }
+    .nav__links a:hover { color: var(--white); }
+    .nav__burger { display: none; background: none; border: none; color: var(--white); font-size: 1.4rem; cursor: pointer; }
+
+    /* MOBILE NAV */
+    .nav__mobile {
+      display: none; position: fixed; top: 64px; left: 0; right: 0;
+      background: var(--teal-dark); z-index: 199;
+      flex-direction: column; padding: 1rem 1.5rem 1.5rem;
+      gap: 1rem; box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .nav__mobile.open { display: flex; }
+    .nav__mobile a { color: rgba(255,255,255,0.85); font-family: var(--font-h); font-weight: 600; font-size: 1rem; padding: 0.3rem 0; }
+
+    /* HERO */
+    .hero {
+      margin-top: 64px; min-height: calc(100vh - 64px);
+      display: grid; grid-template-columns: 72px 1fr;
+      background: var(--white); position: relative; overflow: hidden;
+    }
+    .hero__bar {
+      background: var(--teal-dark);
+      background-image:
+        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 18px 18px;
+    }
+    .hero__body {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 4rem 4rem 4rem 3rem; position: relative;
+    }
+    .hero__body::after {
+      content: ''; position: absolute; right: 0; bottom: 0;
+      width: 50%; height: 100%;
+      background: radial-gradient(ellipse at 90% 60%, rgba(232,98,26,0.05) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero__badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--orange-light); color: var(--orange);
+      font-family: var(--font-h); font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 6px 14px; border-radius: 100px;
+      border: 1px solid rgba(232,98,26,0.25); margin-bottom: 1.5rem;
+    }
+    .hero__title { color: var(--teal-dark); margin-bottom: 0.2rem; }
+    .hero__region {
+      font-family: var(--font-h); font-size: clamp(1.3rem, 2.5vw, 2rem);
+      font-weight: 700; color: var(--orange); margin-bottom: 2rem;
+    }
+    .hero__info { display: flex; flex-direction: column; gap: 0.65rem; margin-bottom: 2.5rem; }
+    .hero__info-row { display: flex; align-items: center; gap: 12px; color: var(--gray-600); font-size: 1.02rem; }
+    .hero__info-row i { width: 18px; color: var(--teal); flex-shrink: 0; }
+    .hero__ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .hero__deco {
+      position: absolute; right: 2rem; bottom: 2rem; width: 280px; height: 280px;
+      opacity: 0.05; pointer-events: none;
+    }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-h); font-size: 0.88rem; font-weight: 700;
+      padding: 11px 22px; border-radius: var(--radius);
+      transition: all 0.18s; cursor: pointer; border: none; white-space: nowrap;
+    }
+    .btn--teal { background: var(--teal); color: var(--white); }
+    .btn--teal:hover { background: var(--teal-dark); transform: translateY(-1px); }
+    .btn--outline { background: transparent; color: var(--teal); border: 2px solid var(--teal); }
+    .btn--outline:hover { background: var(--teal); color: var(--white); transform: translateY(-1px); }
+    .btn--orange { background: var(--orange); color: var(--white); }
+    .btn--orange:hover { background: #c44e0e; transform: translateY(-1px); }
+
+    /* STATS */
+    .stats { background: var(--teal); padding: 0; }
+    .stats__row { display: grid; grid-template-columns: repeat(4, 1fr); }
+    .stat {
+      padding: 2.5rem 1.5rem; text-align: center;
+      border-right: 1px solid rgba(255,255,255,0.12);
+    }
+    .stat:last-child { border-right: none; }
+    .stat__n {
+      font-family: var(--font-h); font-size: clamp(2.5rem, 4vw, 3.5rem);
+      font-weight: 800; color: var(--white); line-height: 1;
+    }
+    .stat__n sup { font-size: 0.5em; color: var(--orange-mid); }
+    .stat__l { font-size: 0.82rem; color: rgba(255,255,255,0.7); font-family: var(--font-h); font-weight: 600; margin-top: 0.3rem; }
+
+    /* ABOUT */
+    .about__cols { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .about__text p strong { color: var(--teal-dark); }
+    .about__goals { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .goal {
+      background: var(--teal-light); border-radius: var(--radius);
+      padding: 1.4rem; border-top: 3px solid var(--teal);
+    }
+    .goal__icon {
+      width: 38px; height: 38px; border-radius: 8px;
+      background: var(--teal); color: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; margin-bottom: 0.7rem;
+    }
+    .goal h3 { font-size: 0.9rem; color: var(--teal-dark); margin-bottom: 0.35rem; }
+    .goal p { font-size: 0.82rem; color: var(--gray-600); margin: 0; }
+
+    /* PROGRAMME */
+    .prog__wrap { max-width: 680px; margin: 0 auto; position: relative; }
+    .prog__wrap::before {
+      content: ''; position: absolute; left: 64px; top: 0; bottom: 0;
+      width: 2px; background: rgba(27,109,126,0.2);
+    }
+    .prog-item { display: grid; grid-template-columns: 64px 1fr; }
+    .prog-time {
+      font-family: var(--font-h); font-size: 0.74rem; font-weight: 700;
+      color: var(--teal); padding: 1.2rem 1.4rem 1.2rem 0;
+      text-align: right; line-height: 1.3;
+    }
+    .prog-body { padding: 1.2rem 1.5rem; position: relative; }
+    .prog-body::before {
+      content: ''; position: absolute; left: -5px; top: 1.55rem;
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--teal); border: 2px solid var(--white);
+      box-shadow: 0 0 0 2px var(--teal);
+    }
+    .prog-item--accent .prog-body::before { background: var(--orange); box-shadow: 0 0 0 2px var(--orange); }
+    .prog-item--break .prog-body::before { background: var(--gray-200); box-shadow: 0 0 0 2px var(--gray-600); }
+    .prog-body h3 { font-size: 0.98rem; color: var(--teal-dark); margin-bottom: 0.2rem; }
+    .prog-item--break .prog-body h3 { color: var(--gray-600); }
+    .prog-body p { font-size: 0.85rem; color: var(--gray-600); margin: 0; }
+
+    /* SPEAKER */
+    .speaker {
+      background: var(--teal-dark); color: var(--white); position: relative; overflow: hidden;
+    }
+    .speaker::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+    .speaker__cols { display: grid; grid-template-columns: auto 1fr; gap: 3rem; align-items: start; position: relative; }
+    .speaker__avatar {
+      width: 160px; height: 160px; border-radius: 16px; flex-shrink: 0;
+      background: var(--teal-mid); display: flex; align-items: center; justify-content: center;
+      font-size: 4rem; color: rgba(255,255,255,0.35);
+      border: 3px solid rgba(255,255,255,0.15); overflow: hidden;
+    }
+    .speaker__avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .speaker__name { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; color: var(--white); margin-bottom: 0.2rem; }
+    .speaker__role { color: rgba(255,255,255,0.65); font-size: 0.9rem; margin-bottom: 1.5rem; }
+    .speaker__bio { color: rgba(255,255,255,0.85); }
+    .speaker__bio p + p { margin-top: 0.75rem; }
+    .speaker__bio strong { color: var(--white); }
+    .speaker__bio em { font-style: italic; }
+
+    /* ATELIERS */
+    .ateliers__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+    .atelier {
+      background: var(--white); border-radius: var(--radius);
+      padding: 2rem; box-shadow: var(--shadow);
+      border-top: 4px solid var(--teal);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .atelier:hover { box-shadow: var(--shadow-hover); transform: translateY(-3px); }
+    .atelier:nth-child(even) { border-top-color: var(--orange); }
+    .atelier__num {
+      width: 42px; height: 42px; border-radius: 50%; background: var(--teal); color: var(--white);
+      font-family: var(--font-h); font-size: 1.2rem; font-weight: 800;
+      display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;
+    }
+    .atelier:nth-child(even) .atelier__num { background: var(--orange); }
+    .atelier h3 { color: var(--teal-dark); margin-bottom: 0.6rem; font-size: 1rem; }
+    .atelier p { color: var(--gray-600); font-size: 0.88rem; margin: 0; }
+
+    /* GALLERY */
+    .gal__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+    .gal-photo {
+      border-radius: var(--radius); overflow: hidden; aspect-ratio: 4/3;
+      background: var(--teal-light); position: relative; cursor: pointer;
+    }
+    .gal-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+    .gal-photo:hover img { transform: scale(1.06); }
+    .gal-photo__cap {
+      position: absolute; bottom: 0; left: 0; right: 0; padding: 0.6rem 0.8rem;
+      background: linear-gradient(transparent, rgba(0,0,0,0.65));
+      color: var(--white); font-size: 0.82rem;
+    }
+    .gal-empty, .vid-empty, .res-empty {
+      text-align: center; padding: 3.5rem 2rem; color: var(--gray-600);
+      grid-column: 1 / -1;
+    }
+    .gal-empty i, .vid-empty i, .res-empty i {
+      font-size: 2.5rem; color: var(--teal-mid); opacity: 0.4; display: block; margin-bottom: 0.75rem;
+    }
+    .vid__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; margin-top: 2.5rem; }
+    .vid-card { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
+    .vid-card__frame { position: relative; aspect-ratio: 16/9; background: var(--teal-light); }
+    .vid-card__frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+    .vid-card__info { padding: 1rem 1.2rem; background: var(--white); }
+    .vid-card__info h3 { font-size: 0.92rem; margin-bottom: 0.25rem; }
+    .vid-card__info p { font-size: 0.82rem; color: var(--gray-600); margin: 0; }
+
+    /* RESOURCES */
+    .res__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+    .res-card {
+      background: var(--white); border-radius: var(--radius); padding: 1.5rem;
+      box-shadow: var(--shadow); border-left: 4px solid var(--teal);
+      display: flex; flex-direction: column;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .res-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+    .res-card__cat {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--teal);
+      font-family: var(--font-h); margin-bottom: 0.4rem;
+    }
+    .res-card h3 { font-size: 0.97rem; margin-bottom: 0.45rem; }
+    .res-card p { font-size: 0.85rem; color: var(--gray-600); flex: 1; }
+    .res-card__link {
+      display: inline-flex; align-items: center; gap: 6px; margin-top: 1rem;
+      font-size: 0.83rem; font-weight: 600; color: var(--teal); font-family: var(--font-h);
+      transition: gap 0.18s;
+    }
+    .res-card__link:hover { gap: 10px; }
+
+    /* DEPARTMENTS */
+    .dept__wrap { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+    .dept {
+      background: var(--white); border-radius: var(--radius);
+      padding: 1.2rem 1.6rem; box-shadow: var(--shadow);
+      text-align: center; min-width: 110px; border-top: 3px solid var(--teal);
+    }
+    .dept--partner { border-top-color: var(--orange); }
+    .dept__name { font-family: var(--font-h); font-weight: 700; color: var(--teal-dark); margin-bottom: 0.2rem; font-size: 0.9rem; }
+    .dept__n { font-size: 1.6rem; font-weight: 800; color: var(--teal); font-family: var(--font-h); line-height: 1; }
+    .dept--partner .dept__n { color: var(--orange); }
+    .dept__l { font-size: 0.72rem; color: var(--gray-600); }
+    .partners__tags { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-top: 2.5rem; }
+    .tag {
+      background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8);
+      padding: 4px 12px; border-radius: 100px; font-size: 0.78rem; font-family: var(--font-h);
+    }
+
+    /* FOOTER */
+    footer { background: var(--teal-dark); color: rgba(255,255,255,0.78); padding: 3rem 0 1.5rem; }
+    .footer__cols { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 2.5rem; margin-bottom: 2rem; }
+    .footer__brand { display: flex; align-items: center; gap: 12px; color: var(--white); margin-bottom: 0.75rem; }
+    .footer__brand svg { width: 40px; height: 36px; }
+    .footer__brand-name { font-family: var(--font-h); font-size: 1.05rem; font-weight: 700; }
+    .footer__tagline { font-size: 0.82rem; opacity: 0.65; }
+    footer h4 { color: var(--white); font-family: var(--font-h); font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.9rem; }
+    footer li + li { margin-top: 0.4rem; }
+    footer a { font-size: 0.85rem; opacity: 0.7; transition: opacity 0.2s; }
+    footer a:hover { opacity: 1; }
+    .footer__bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 1.4rem; display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.78rem; opacity: 0.55;
+    }
+
+    /* LIGHTBOX */
+    .lb { display: none; position: fixed; inset: 0; z-index: 500; background: rgba(0,0,0,0.92); align-items: center; justify-content: center; }
+    .lb.on { display: flex; }
+    .lb img { max-width: 92vw; max-height: 90vh; border-radius: 8px; }
+    .lb__close { position: absolute; top: 1.2rem; right: 1.5rem; color: var(--white); font-size: 2rem; cursor: pointer; background: none; border: none; }
+
+    /* RESPONSIVE */
+    @media (max-width: 960px) {
+      .hero { grid-template-columns: 0 1fr; }
+      .hero__bar { display: none; }
+      .hero__body { padding: 3rem 2rem; }
+      .about__cols { grid-template-columns: 1fr; gap: 2.5rem; }
+      .speaker__cols { grid-template-columns: 1fr; gap: 1.5rem; }
+      .speaker__avatar { width: 120px; height: 120px; }
+      .stats__row { grid-template-columns: repeat(2, 1fr); }
+      .stat:nth-child(2) { border-right: none; }
+      .footer__cols { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .section { padding: 60px 0; }
+      .nav__links { display: none; }
+      .nav__burger { display: block; }
+      .about__goals { grid-template-columns: 1fr; }
+      .hero__ctas { flex-direction: column; }
+      .footer__cols { grid-template-columns: 1fr; }
+      .footer__bottom { flex-direction: column; gap: 0.4rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="#top" class="nav__logo">
+      <svg viewBox="0 0 60 52" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="24" cy="21" r="17" fill="none" stroke="rgba(255,255,255,0.92)" stroke-width="2.5"/>
+        <path d="M14 33 L6 43 L20 35" fill="none" stroke="rgba(255,255,255,0.92)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+        <ellipse cx="38" cy="29" rx="15" ry="11.5" fill="#E8621A"/>
+        <path d="M29 39 L33 47 L38 39" fill="#E8621A"/>
+      </svg>
+      <div>
+        <div>PDN AURA</div>
+        <span class="nav__logo-sub">Promeneurs du Net · Auvergne-Rhône-Alpes</span>
+      </div>
+    </a>
+    <ul class="nav__links">
+      <li><a href="#about">La journée</a></li>
+      <li><a href="#programme">Programme</a></li>
+      <li><a href="#ateliers">Ateliers</a></li>
+      <li><a href="#galerie">Galerie</a></li>
+      <li><a href="#ressources">Ressources</a></li>
+    </ul>
+    <button class="nav__burger" onclick="toggleNav()" aria-label="Menu">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+</nav>
+<div class="nav__mobile" id="mobileNav">
+  <a href="#about" onclick="closeNav()">La journée</a>
+  <a href="#programme" onclick="closeNav()">Programme</a>
+  <a href="#ateliers" onclick="closeNav()">Ateliers</a>
+  <a href="#galerie" onclick="closeNav()">Galerie</a>
+  <a href="#ressources" onclick="closeNav()">Ressources</a>
+</div>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="hero__bar"></div>
+  <div class="hero__body">
+    <span class="hero__badge"><i class="fas fa-star"></i>&nbsp; Première édition régionale</span>
+    <h1 class="hero__title">Rencontre Régionale<br>des Promeneurs du Net</h1>
+    <div class="hero__region">Auvergne-Rhône-Alpes</div>
+    <div class="hero__info">
+      <div class="hero__info-row"><i class="fas fa-calendar-check"></i><span>Jeudi 30 avril 2026</span></div>
+      <div class="hero__info-row"><i class="fas fa-location-dot"></i><span>Métropole de Lyon · 20 rue du Lac, Lyon 3<sup>ème</sup></span></div>
+      <div class="hero__info-row"><i class="fas fa-users"></i><span>Plus de 108 professionnels réunis</span></div>
+    </div>
+    <div class="hero__ctas">
+      <a href="#galerie" class="btn btn--teal"><i class="fas fa-images"></i> Voir la galerie</a>
+      <a href="#programme" class="btn btn--outline"><i class="fas fa-clock"></i> Programme de la journée</a>
+    </div>
+    <svg class="hero__deco" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="90" fill="none" stroke="#1B6D7E" stroke-width="1"/>
+      <circle cx="100" cy="100" r="70" fill="none" stroke="#1B6D7E" stroke-width="1"/>
+      <circle cx="100" cy="100" r="50" fill="none" stroke="#1B6D7E" stroke-width="1"/>
+      <circle cx="100" cy="100" r="30" fill="none" stroke="#1B6D7E" stroke-width="1"/>
+      <line x1="10" y1="100" x2="190" y2="100" stroke="#1B6D7E" stroke-width="0.5"/>
+      <line x1="100" y1="10" x2="100" y2="190" stroke="#1B6D7E" stroke-width="0.5"/>
+    </svg>
+  </div>
+</header>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="container">
+    <div class="stats__row">
+      <div class="stat"><div class="stat__n">108<sup>+</sup></div><div class="stat__l">Participants</div></div>
+      <div class="stat"><div class="stat__n">7</div><div class="stat__l">Départements AURA</div></div>
+      <div class="stat"><div class="stat__n">5</div><div class="stat__l">Ateliers thématiques</div></div>
+      <div class="stat"><div class="stat__n">1</div><div class="stat__l">Grand témoin</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="about__cols">
+      <div class="about__text">
+        <span class="section-label">La journée</span>
+        <h2 style="margin-bottom:1.25rem;">Pourquoi une journée régionale ?</h2>
+        <p>Depuis près de dix ans, le dispositif <strong>Promeneurs du Net (PDN)</strong> accompagne les jeunes et les familles en créant un lien de confiance et d'écoute au sein des territoires, via les réseaux sociaux et les plateformes numériques. Ces professionnels prolongent leurs actions éducatives dans l'espace numérique.</p>
+        <p>Depuis 2019, les coordinateurs de certains départements ont pris l'initiative de se réunir pour échanger sur les actions mises en place dans chaque département. Le désir d'une <strong>synergie à l'échelle régionale</strong> s'est rapidement exprimé.</p>
+        <p>Cette première journée régionale AURA a ainsi réuni professionnels de terrain, coordinateurs et partenaires autour d'un programme riche en échanges, ateliers et découvertes.</p>
+        <div style="margin-top:1.5rem;">
+          <a href="https://promeneursdunet.fr" target="_blank" rel="noopener" class="btn btn--outline">
+            <i class="fas fa-arrow-up-right-from-square"></i> Site national PDN
+          </a>
+        </div>
+      </div>
+      <div class="about__goals">
+        <div class="goal">
+          <div class="goal__icon"><i class="fas fa-people-group"></i></div>
+          <h3>Renforcer la cohésion</h3>
+          <p>Créer des espaces d'échanges et de rencontres entre les professionnels de terrain</p>
+        </div>
+        <div class="goal">
+          <div class="goal__icon"><i class="fas fa-graduation-cap"></i></div>
+          <h3>Développer les compétences</h3>
+          <p>Face aux enjeux sociétaux et numériques actuels</p>
+        </div>
+        <div class="goal">
+          <div class="goal__icon"><i class="fas fa-share-nodes"></i></div>
+          <h3>Mutualiser les pratiques</h3>
+          <p>Valoriser les initiatives, partager outils, ressources et méthodologies</p>
+        </div>
+        <div class="goal">
+          <div class="goal__icon"><i class="fas fa-lightbulb"></i></div>
+          <h3>Stimuler l'innovation</h3>
+          <p>Favoriser l'émergence de projets collaboratifs régionaux</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMME -->
+<section class="section section--teal-light" id="programme">
+  <div class="container">
+    <div class="section-header" style="text-align:center;">
+      <span class="section-label">Le déroulé</span>
+      <h2 style="margin-bottom:0.5rem;">Programme de la journée</h2>
+      <p class="section-subtitle" style="margin:0 auto;">Jeudi 30 avril 2026 · Métropole de Lyon, 20 rue du Lac, Lyon 3<sup>ème</sup></p>
+    </div>
+    <div class="prog__wrap">
+      <div class="prog-item">
+        <div class="prog-time">8h45</div>
+        <div class="prog-body"><h3>Accueil des participants</h3></div>
+      </div>
+      <div class="prog-item">
+        <div class="prog-time">9h00<br>10h00</div>
+        <div class="prog-body">
+          <h3>Café outils &amp; découverte de ressources</h3>
+          <p>Découverte des outils et initiatives partagés par les réseaux PDN des différents départements</p>
+        </div>
+      </div>
+      <div class="prog-item prog-item--accent">
+        <div class="prog-time">10h15<br>11h15</div>
+        <div class="prog-body">
+          <h3>Conférence d'ouverture – Jocelyn Lachance</h3>
+          <p>Docteur en sociologie et en sciences de l'éducation · 45 min de conférence + 15 min de questions</p>
+        </div>
+      </div>
+      <div class="prog-item">
+        <div class="prog-time">11h30<br>12h30</div>
+        <div class="prog-body">
+          <h3>Bourse aux initiatives &amp; café outils</h3>
+          <p>Format Explore Camp – mise en lumière des projets et initiatives de terrain</p>
+        </div>
+      </div>
+      <div class="prog-item prog-item--break">
+        <div class="prog-time">12h30<br>13h30</div>
+        <div class="prog-body"><h3>Pause déjeuner – Buffet</h3></div>
+      </div>
+      <div class="prog-item">
+        <div class="prog-time">13h30<br>15h30</div>
+        <div class="prog-body">
+          <h3>Ateliers thématiques</h3>
+          <p>2 ateliers de 50 min au choix parmi les 5 proposés, animés par les coordinateurs-trices</p>
+        </div>
+      </div>
+      <div class="prog-item prog-item--accent">
+        <div class="prog-time">15h45<br>16h30</div>
+        <div class="prog-body">
+          <h3>Synthèse &amp; rapport d'étonnement</h3>
+          <p>Remise en commun en présence de Jocelyn Lachance, grand témoin de la journée</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPEAKER -->
+<section class="section speaker" id="intervenant">
+  <div class="container">
+    <div class="speaker__cols">
+      <div class="speaker__avatar"><i class="fas fa-user"></i></div>
+      <div>
+        <span class="section-label">Grand témoin de la journée</span>
+        <h2 class="speaker__name">Jocelyn Lachance</h2>
+        <p class="speaker__role">Maître de conférences en sociologie · Université de Pau et des Pays de l'Adour · Membre du CNRS TREE</p>
+        <div class="speaker__bio">
+          <p>Spécialiste des usages numériques des jeunes, Jocelyn Lachance s'est imposé comme <strong>une voix de référence</strong> pour comprendre les transformations de l'adolescence à l'ère du numérique. Ses travaux portent sur le devenir adulte dans les sociétés contemporaines.</p>
+          <p>À travers ses ouvrages — notamment <em>Accompagner les ados à l'ère du numérique</em> et <em>Grandir inquiet à l'heure des réseaux sociaux</em> (2025) — il propose une lecture nuancée des pratiques numériques des jeunes. Il montre que derrière les écrans se jouent des processus de socialisation, d'affirmation identitaire et de construction de confiance.</p>
+          <p>Il connait bien le dispositif PDN et a déjà participé aux journées des réseaux normand (2025), Pyrénées-Orientales (2025) et Drôme (2019).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ATELIERS -->
+<section class="section" id="ateliers">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">L'après-midi</span>
+      <h2>Les 5 ateliers thématiques</h2>
+      <p class="section-subtitle">Chaque participant a choisi 2 ateliers parmi les 5 proposés, animés par les coordinateurs et coordinatrices des réseaux PDN.</p>
+    </div>
+    <div class="ateliers__grid">
+      <div class="atelier">
+        <div class="atelier__num">1</div>
+        <h3>Dessine-moi un PDN</h3>
+        <p>En quoi les missions Promeneurs du Net me différencient des autres professionnels jeunesse et parentalité ? Quelles compétences me sont nécessaires ? Cela modifie-t-il ma posture vis-à-vis de mon public, de ma structure et des partenaires ?</p>
+      </div>
+      <div class="atelier">
+        <div class="atelier__num">2</div>
+        <h3>Le réseau, on en parle</h3>
+        <p>Qu'est-ce qui nous unit au sein du réseau Promeneurs du Net ? En quoi ce réseau nourrit mes pratiques professionnelles ? Comment peut-il prendre sa place avec les autres réseaux existants ? Quelles sont mes attentes vis-à-vis de lui ?</p>
+      </div>
+      <div class="atelier">
+        <div class="atelier__num">3</div>
+        <h3>Mon public et moi</h3>
+        <p>Quels liens je tisse avec mon public en tant que PDN ? Comment identifier les différents besoins de celui-ci ? Comment créer du lien avec lui à travers mes missions de PDN ? Quelles actions mettre en place ?</p>
+      </div>
+      <div class="atelier">
+        <div class="atelier__num">4</div>
+        <h3>Politiques publiques et numérique : moi dans tout ça ?</h3>
+        <p>Comment s'adapter aux différents discours et décisions politiques concernant les pratiques numériques des jeunes et des familles ? Entre prévention, interdiction, culpabilisation et autonomie, comment trouver sa place ?</p>
+      </div>
+      <div class="atelier">
+        <div class="atelier__num">5</div>
+        <h3>PDN et éducation au numérique</h3>
+        <p>Au-delà des réseaux sociaux, comment animer des actions d'éducation au numérique ? Qu'est-ce qui fait notre légitimité à aborder cette thématique transversale ?</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="section section--gray" id="galerie">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Souvenirs</span>
+      <h2>Galerie photos</h2>
+      <p class="section-subtitle">Les moments forts de la journée.</p>
+    </div>
+    <div class="gal__grid" id="photoGrid"></div>
+    <div style="margin-top:3rem;">
+      <h3 style="font-family:var(--font-h);color:var(--teal-dark);font-size:1.2rem;margin-bottom:1rem;">Vidéos</h3>
+      <div class="vid__grid" id="videoGrid"></div>
+    </div>
+  </div>
+</section>
+
+<!-- RESOURCES -->
+<section class="section" id="ressources">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Pour aller plus loin</span>
+      <h2>Ressources &amp; liens utiles</h2>
+      <p class="section-subtitle">Outils, articles et sites partagés lors de la journée régionale.</p>
+    </div>
+    <div class="res__grid" id="resourceGrid"></div>
+  </div>
+</section>
+
+<!-- DEPARTMENTS -->
+<section class="section section--teal" id="departements">
+  <div class="container">
+    <div class="section-header" style="text-align:center;">
+      <span class="section-label">Présents à la journée</span>
+      <h2>Les départements représentés</h2>
+      <p class="section-subtitle">7 départements de la région Auvergne-Rhône-Alpes, plus des partenaires régionaux et nationaux.</p>
+    </div>
+    <div class="dept__wrap">
+      <div class="dept"><div class="dept__name">Ain</div><div class="dept__n">9</div><div class="dept__l">participants</div></div>
+      <div class="dept"><div class="dept__name">Allier</div><div class="dept__n">2</div><div class="dept__l">participants</div></div>
+      <div class="dept"><div class="dept__name">Ardèche</div><div class="dept__n">18</div><div class="dept__l">participants</div></div>
+      <div class="dept"><div class="dept__name">Drôme</div><div class="dept__n">18</div><div class="dept__l">participants</div></div>
+      <div class="dept"><div class="dept__name">Isère</div><div class="dept__n">23</div><div class="dept__l">participants</div></div>
+      <div class="dept"><div class="dept__name">Loire</div><div class="dept__n">14</div><div class="dept__l">participants</div></div>
+      <div class="dept"><div class="dept__name">Rhône</div><div class="dept__n">26</div><div class="dept__l">participants</div></div>
+      <div class="dept"><div class="dept__name">Savoie</div><div class="dept__n">9</div><div class="dept__l">participants</div></div>
+      <div class="dept dept--partner"><div class="dept__name">Partenaires</div><div class="dept__n">7</div><div class="dept__l">CNAF, FRANCAS…</div></div>
+    </div>
+    <div class="partners__tags">
+      <span class="tag">CNAF</span><span class="tag">CAF Ain</span><span class="tag">CAF Ardèche</span>
+      <span class="tag">CAF Drôme</span><span class="tag">CAF Isère</span><span class="tag">CAF Loire</span>
+      <span class="tag">CAF Rhône</span><span class="tag">CAF Savoie</span><span class="tag">MSA</span>
+      <span class="tag">Métropole de Lyon</span><span class="tag">SDJES Loire</span><span class="tag">Académie de Lyon</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer__cols">
+      <div>
+        <div class="footer__brand">
+          <svg viewBox="0 0 60 52" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="24" cy="21" r="17" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="2.5"/>
+            <path d="M14 33 L6 43 L20 35" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+            <ellipse cx="38" cy="29" rx="15" ry="11.5" fill="#E8621A"/>
+            <path d="M29 39 L33 47 L38 39" fill="#E8621A"/>
+          </svg>
+          <span class="footer__brand-name">PDN AURA</span>
+        </div>
+        <p class="footer__tagline">Première Rencontre Régionale des Promeneurs du Net Auvergne-Rhône-Alpes · 30 avril 2026 · Lyon</p>
+      </div>
+      <div>
+        <h4>Liens utiles</h4>
+        <ul>
+          <li><a href="https://promeneursdunet.fr" target="_blank">Site national PDN</a></li>
+          <li><a href="https://promeneursdunet01.fr/?p=968" target="_blank">Article PDN Ain</a></li>
+          <li><a href="https://www.caf.fr" target="_blank">CAF.fr</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#about">La journée</a></li>
+          <li><a href="#programme">Programme</a></li>
+          <li><a href="#ateliers">Ateliers</a></li>
+          <li><a href="#galerie">Galerie</a></li>
+          <li><a href="#ressources">Ressources</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 Réseau PDN Auvergne-Rhône-Alpes · Dispositif financé par les CAF</span>
+      <a href="admin.html">Administration</a>
+    </div>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb" onclick="closeLb()">
+  <button class="lb__close" onclick="closeLb()"><i class="fas fa-times"></i></button>
+  <img id="lbImg" src="" alt="">
+</div>
+
+<script>
+  // Mobile nav
+  function toggleNav() { document.getElementById('mobileNav').classList.toggle('open'); }
+  function closeNav() { document.getElementById('mobileNav').classList.remove('open'); }
+
+  // Lightbox
+  function openLb(url) { document.getElementById('lbImg').src = url; document.getElementById('lb').classList.add('on'); }
+  function closeLb() { document.getElementById('lb').classList.remove('on'); }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+
+  // Load dynamic content
+  async function loadContent() {
+    let data = { gallery: [], videos: [], resources: [] };
+    try {
+      const r = await fetch('./data/content.json?t=' + Date.now());
+      if (r.ok) data = await r.json();
+    } catch(e) {}
+
+    // Photos
+    const pg = document.getElementById('photoGrid');
+    if (!data.gallery || !data.gallery.length) {
+      pg.innerHTML = '<div class="gal-empty"><i class="fas fa-camera"></i><p>Les photos de la journée seront ajoutées prochainement.</p></div>';
+    } else {
+      pg.innerHTML = data.gallery.map(p =>
+        `<div class="gal-photo" onclick="openLb('${p.url}')">
+          <img src="${p.url}" alt="${p.caption||'Photo'}" loading="lazy">
+          ${p.caption ? `<div class="gal-photo__cap">${p.caption}</div>` : ''}
+        </div>`).join('');
+    }
+
+    // Videos
+    const vg = document.getElementById('videoGrid');
+    if (!data.videos || !data.videos.length) {
+      vg.innerHTML = '<div class="vid-empty"><i class="fas fa-video"></i><p>Les vidéos seront ajoutées prochainement.</p></div>';
+    } else {
+      vg.innerHTML = data.videos.map(v =>
+        `<div class="vid-card">
+          <div class="vid-card__frame"><iframe src="https://www.youtube.com/embed/${v.youtubeId}" title="${v.title}" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+          <div class="vid-card__info"><h3>${v.title}</h3>${v.description?`<p>${v.description}</p>`:''}</div>
+        </div>`).join('');
+    }
+
+    // Resources
+    const rg = document.getElementById('resourceGrid');
+    if (!data.resources || !data.resources.length) {
+      rg.innerHTML = '<div class="res-empty"><i class="fas fa-folder-open"></i><p>Les ressources partagées lors de la journée seront ajoutées prochainement.</p></div>';
+    } else {
+      rg.innerHTML = data.resources.map(r =>
+        `<div class="res-card">
+          ${r.category?`<div class="res-card__cat">${r.category}</div>`:''}
+          <h3>${r.title}</h3>
+          ${r.description?`<p>${r.description}</p>`:''}
+          <a href="${r.url}" target="_blank" rel="noopener" class="res-card__link">Accéder <i class="fas fa-arrow-right"></i></a>
+        </div>`).join('');
+    }
+  }
+
+  loadContent();
+</script>
+</body>
 </html>

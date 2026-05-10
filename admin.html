@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administration – PDN AURA 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --teal: #1B6D7E; --teal-dark: #0D4A57; --teal-light: #E8F4F7;
+      --orange: #E8621A; --orange-light: #FFF3EC;
+      --white: #fff; --gray-100: #F8FAFB; --gray-200: #EEF2F4; --gray-600: #5A6E75;
+      --text: #1A2E35; --red: #DC2626; --green: #16A34A;
+      --font-h: 'Montserrat', sans-serif; --font-b: 'Open Sans', sans-serif;
+      --radius: 10px; --shadow: 0 2px 12px rgba(27,109,126,0.12);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-b); color: var(--text); background: var(--gray-100); min-height: 100vh; }
+    h1,h2,h3 { font-family: var(--font-h); }
+    p { margin-bottom: 0.75rem; }
+    p:last-child { margin-bottom: 0; }
+
+    /* LOGIN */
+    .login-page {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      background: var(--teal-dark);
+      background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    .login-box {
+      background: var(--white); border-radius: 16px; padding: 2.5rem 2rem;
+      width: 100%; max-width: 380px; box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+    .login-box svg { width: 52px; height: 46px; margin-bottom: 1.25rem; }
+    .login-box h1 { font-size: 1.4rem; color: var(--teal-dark); margin-bottom: 0.25rem; }
+    .login-box p { color: var(--gray-600); font-size: 0.88rem; margin-bottom: 1.75rem; }
+    .login-err { background: #FEF2F2; color: var(--red); border-radius: 8px; padding: 0.7rem 1rem; font-size: 0.85rem; margin-top: 0.75rem; display: none; }
+
+    /* FORMS */
+    .form-group { margin-bottom: 1rem; text-align: left; }
+    label { font-size: 0.8rem; font-weight: 600; color: var(--gray-600); font-family: var(--font-h); display: block; margin-bottom: 0.35rem; }
+    input[type=text], input[type=url], input[type=password], textarea, select {
+      width: 100%; padding: 10px 12px; border: 1.5px solid var(--gray-200);
+      border-radius: 8px; font-family: var(--font-b); font-size: 0.9rem; color: var(--text);
+      transition: border-color 0.18s; background: var(--white);
+    }
+    input:focus, textarea:focus, select:focus { outline: none; border-color: var(--teal); }
+    textarea { resize: vertical; min-height: 80px; }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-family: var(--font-h); font-size: 0.85rem; font-weight: 700;
+      padding: 10px 20px; border-radius: var(--radius);
+      transition: all 0.18s; cursor: pointer; border: none;
+    }
+    .btn--teal { background: var(--teal); color: var(--white); }
+    .btn--teal:hover { background: var(--teal-dark); }
+    .btn--orange { background: var(--orange); color: var(--white); }
+    .btn--orange:hover { background: #c44e0e; }
+    .btn--outline { background: transparent; color: var(--teal); border: 2px solid var(--teal); }
+    .btn--outline:hover { background: var(--teal); color: var(--white); }
+    .btn--red { background: transparent; color: var(--red); border: 1.5px solid var(--red); padding: 6px 12px; font-size: 0.78rem; }
+    .btn--red:hover { background: var(--red); color: var(--white); }
+    .btn--full { width: 100%; justify-content: center; }
+
+    /* LAYOUT */
+    .admin-wrap { display: grid; grid-template-columns: 240px 1fr; min-height: 100vh; }
+
+    /* SIDEBAR */
+    .sidebar {
+      background: var(--teal-dark); color: var(--white);
+      padding: 1.5rem 0; position: sticky; top: 0; height: 100vh;
+      display: flex; flex-direction: column;
+    }
+    .sidebar__brand {
+      display: flex; align-items: center; gap: 10px; padding: 0 1.25rem 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .sidebar__brand svg { width: 32px; height: 28px; }
+    .sidebar__brand-text { font-family: var(--font-h); font-size: 0.92rem; font-weight: 700; }
+    .sidebar__brand-sub { font-size: 0.65rem; opacity: 0.6; display: block; }
+    .sidebar__nav { padding: 1.25rem 0; flex: 1; }
+    .sidebar__nav a {
+      display: flex; align-items: center; gap: 10px;
+      padding: 0.7rem 1.25rem; color: rgba(255,255,255,0.75);
+      font-family: var(--font-h); font-size: 0.85rem; font-weight: 600;
+      transition: all 0.18s; border-left: 3px solid transparent; cursor: pointer;
+    }
+    .sidebar__nav a:hover, .sidebar__nav a.active {
+      color: var(--white); background: rgba(255,255,255,0.07);
+      border-left-color: var(--orange);
+    }
+    .sidebar__nav a i { width: 16px; text-align: center; }
+    .sidebar__footer { padding: 1rem 1.25rem; border-top: 1px solid rgba(255,255,255,0.1); }
+    .sidebar__footer a {
+      display: flex; align-items: center; gap: 8px;
+      color: rgba(255,255,255,0.6); font-size: 0.82rem; transition: color 0.18s;
+    }
+    .sidebar__footer a:hover { color: var(--white); }
+
+    /* MAIN */
+    .main { padding: 2rem; overflow-y: auto; }
+    .main__header { margin-bottom: 2rem; }
+    .main__header h2 { color: var(--teal-dark); font-size: 1.5rem; }
+    .main__header p { color: var(--gray-600); font-size: 0.9rem; margin-top: 0.25rem; }
+
+    /* PANEL */
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    /* PUBLISH BAR */
+    .publish-bar {
+      background: var(--white); border-radius: var(--radius); padding: 1.25rem 1.5rem;
+      box-shadow: var(--shadow); margin-bottom: 2rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+    }
+    .publish-bar__info { flex: 1; }
+    .publish-bar__info h3 { font-size: 0.95rem; color: var(--teal-dark); }
+    .publish-bar__info p { font-size: 0.82rem; color: var(--gray-600); margin: 0; }
+    .publish-status { font-size: 0.82rem; padding: 4px 10px; border-radius: 100px; font-family: var(--font-h); font-weight: 600; }
+    .publish-status--ok { background: #DCFCE7; color: var(--green); }
+    .publish-status--err { background: #FEF2F2; color: var(--red); }
+
+    /* TOKEN SETUP */
+    .token-setup {
+      background: var(--orange-light); border: 1.5px solid rgba(232,98,26,0.25);
+      border-radius: var(--radius); padding: 1.25rem 1.5rem; margin-bottom: 1.5rem;
+    }
+    .token-setup h3 { font-size: 0.95rem; color: var(--orange); margin-bottom: 0.5rem; }
+    .token-setup p { font-size: 0.82rem; color: var(--text); }
+    .token-row { display: flex; gap: 0.75rem; margin-top: 0.75rem; }
+    .token-row input { flex: 1; }
+
+    /* ADD FORM */
+    .add-form {
+      background: var(--white); border-radius: var(--radius); padding: 1.5rem;
+      box-shadow: var(--shadow); margin-bottom: 2rem;
+    }
+    .add-form h3 { font-size: 1rem; color: var(--teal-dark); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 8px; }
+    .add-form h3 i { color: var(--teal); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    /* ITEMS LIST */
+    .items-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .item-card {
+      background: var(--white); border-radius: var(--radius); padding: 1rem 1.25rem;
+      box-shadow: var(--shadow); display: flex; align-items: flex-start; gap: 1rem;
+    }
+    .item-card__thumb {
+      width: 72px; height: 54px; border-radius: 6px; flex-shrink: 0;
+      background: var(--teal-light); overflow: hidden; object-fit: cover;
+    }
+    .item-card__thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .item-card__body { flex: 1; min-width: 0; }
+    .item-card__body strong { font-family: var(--font-h); font-size: 0.92rem; color: var(--text); display: block; margin-bottom: 0.2rem; }
+    .item-card__body span { font-size: 0.8rem; color: var(--gray-600); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; }
+    .item-card__actions { display: flex; gap: 0.5rem; flex-shrink: 0; }
+    .items-empty { text-align: center; padding: 2.5rem; color: var(--gray-600); background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); }
+    .items-empty i { font-size: 2rem; color: var(--teal-light); display: block; margin-bottom: 0.5rem; }
+
+    /* TOAST */
+    .toast {
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 999;
+      background: var(--teal-dark); color: var(--white);
+      padding: 1rem 1.5rem; border-radius: var(--radius);
+      font-family: var(--font-h); font-size: 0.88rem; font-weight: 600;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+      display: none; align-items: center; gap: 10px;
+      max-width: 360px;
+    }
+    .toast.show { display: flex; }
+    .toast--err { background: var(--red); }
+    .toast--ok { background: var(--green); }
+
+    @media (max-width: 768px) {
+      .admin-wrap { grid-template-columns: 1fr; }
+      .sidebar { position: relative; height: auto; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- LOGIN PAGE -->
+<div id="loginPage" class="login-page">
+  <div class="login-box">
+    <svg viewBox="0 0 60 52" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="24" cy="21" r="17" fill="none" stroke="#1B6D7E" stroke-width="2.5"/>
+      <path d="M14 33 L6 43 L20 35" fill="none" stroke="#1B6D7E" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+      <ellipse cx="38" cy="29" rx="15" ry="11.5" fill="#E8621A"/>
+      <path d="M29 39 L33 47 L38 39" fill="#E8621A"/>
+    </svg>
+    <h1>Administration PDN AURA</h1>
+    <p>Connectez-vous pour gérer le contenu du site.</p>
+    <div class="form-group">
+      <label for="loginPwd"><i class="fas fa-lock"></i>&nbsp; Mot de passe</label>
+      <input type="password" id="loginPwd" placeholder="••••••••••••" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <button class="btn btn--teal btn--full" onclick="doLogin()"><i class="fas fa-sign-in-alt"></i> Se connecter</button>
+    <div class="login-err" id="loginErr">Mot de passe incorrect.</div>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="adminPanel" class="admin-wrap" style="display:none;">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar__brand">
+      <svg viewBox="0 0 60 52" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="24" cy="21" r="17" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="2.5"/>
+        <path d="M14 33 L6 43 L20 35" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+        <ellipse cx="38" cy="29" rx="15" ry="11.5" fill="#E8621A"/>
+        <path d="M29 39 L33 47 L38 39" fill="#E8621A"/>
+      </svg>
+      <div>
+        <div class="sidebar__brand-text">PDN AURA</div>
+        <span class="sidebar__brand-sub">Administration</span>
+      </div>
+    </div>
+    <nav class="sidebar__nav">
+      <a onclick="showPanel('photos')" id="tab-photos" class="active"><i class="fas fa-camera"></i> Photos</a>
+      <a onclick="showPanel('videos')" id="tab-videos"><i class="fas fa-video"></i> Vidéos</a>
+      <a onclick="showPanel('resources')" id="tab-resources"><i class="fas fa-link"></i> Ressources</a>
+      <a onclick="showPanel('settings')" id="tab-settings"><i class="fas fa-gear"></i> Paramètres</a>
+    </nav>
+    <div class="sidebar__footer">
+      <a href="index.html" target="_blank"><i class="fas fa-arrow-up-right-from-square"></i> Voir le site</a>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+
+    <!-- PUBLISH BAR -->
+    <div class="publish-bar">
+      <div class="publish-bar__info">
+        <h3>Publication sur GitHub Pages</h3>
+        <p>Vos modifications sont sauvegardées localement. Cliquez sur "Publier" pour les mettre en ligne.</p>
+      </div>
+      <span class="publish-status" id="publishStatus">–</span>
+      <button class="btn btn--orange" onclick="publishContent()"><i class="fas fa-cloud-upload-alt"></i> Publier</button>
+    </div>
+
+    <!-- PHOTOS PANEL -->
+    <div id="panel-photos" class="panel active">
+      <div class="main__header">
+        <h2><i class="fas fa-camera" style="color:var(--teal);margin-right:0.5rem;"></i>Galerie photos</h2>
+        <p>Ajoutez les photos de la journée en collant l'URL d'une image hébergée en ligne.</p>
+      </div>
+      <div class="add-form">
+        <h3><i class="fas fa-plus-circle"></i> Ajouter une photo</h3>
+        <div class="form-group">
+          <label>URL de l'image *</label>
+          <input type="url" id="photoUrl" placeholder="https://exemple.com/photo.jpg">
+        </div>
+        <div class="form-group">
+          <label>Légende (optionnel)</label>
+          <input type="text" id="photoCaption" placeholder="Description de la photo...">
+        </div>
+        <button class="btn btn--teal" onclick="addPhoto()"><i class="fas fa-plus"></i> Ajouter</button>
+      </div>
+      <div id="photoList" class="items-list"></div>
+    </div>
+
+    <!-- VIDEOS PANEL -->
+    <div id="panel-videos" class="panel">
+      <div class="main__header">
+        <h2><i class="fas fa-video" style="color:var(--teal);margin-right:0.5rem;"></i>Vidéos YouTube</h2>
+        <p>Ajoutez des vidéos YouTube en collant l'identifiant ou l'URL complète.</p>
+      </div>
+      <div class="add-form">
+        <h3><i class="fas fa-plus-circle"></i> Ajouter une vidéo</h3>
+        <div class="form-group">
+          <label>URL YouTube ou identifiant *</label>
+          <input type="text" id="videoUrl" placeholder="https://youtu.be/XXXXXXXXXXX ou XXXXXXXXXXX">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Titre *</label>
+            <input type="text" id="videoTitle" placeholder="Titre de la vidéo">
+          </div>
+          <div class="form-group">
+            <label>Description (optionnel)</label>
+            <input type="text" id="videoDesc" placeholder="Courte description...">
+          </div>
+        </div>
+        <button class="btn btn--teal" onclick="addVideo()"><i class="fas fa-plus"></i> Ajouter</button>
+      </div>
+      <div id="videoList" class="items-list"></div>
+    </div>
+
+    <!-- RESOURCES PANEL -->
+    <div id="panel-resources" class="panel">
+      <div class="main__header">
+        <h2><i class="fas fa-link" style="color:var(--teal);margin-right:0.5rem;"></i>Ressources &amp; liens</h2>
+        <p>Ajoutez les liens et ressources partagés lors de la journée.</p>
+      </div>
+      <div class="add-form">
+        <h3><i class="fas fa-plus-circle"></i> Ajouter une ressource</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Titre *</label>
+            <input type="text" id="resTitle" placeholder="Nom de la ressource">
+          </div>
+          <div class="form-group">
+            <label>URL *</label>
+            <input type="url" id="resUrl" placeholder="https://...">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Description</label>
+            <input type="text" id="resDesc" placeholder="Brève description...">
+          </div>
+          <div class="form-group">
+            <label>Catégorie</label>
+            <input type="text" id="resCat" placeholder="ex : Dispositif PDN, Numérique, Jeunesse…">
+          </div>
+        </div>
+        <button class="btn btn--teal" onclick="addResource()"><i class="fas fa-plus"></i> Ajouter</button>
+      </div>
+      <div id="resourceList" class="items-list"></div>
+    </div>
+
+    <!-- SETTINGS PANEL -->
+    <div id="panel-settings" class="panel">
+      <div class="main__header">
+        <h2><i class="fas fa-gear" style="color:var(--teal);margin-right:0.5rem;"></i>Paramètres</h2>
+        <p>Configuration de la connexion GitHub pour la publication.</p>
+      </div>
+      <div class="add-form">
+        <h3><i class="fab fa-github"></i> Token GitHub</h3>
+        <p style="font-size:0.85rem;color:var(--gray-600);margin-bottom:1rem;">
+          Votre token GitHub Personal Access Token (scope <code>repo</code>) est nécessaire pour publier les modifications sur GitHub Pages.<br>
+          Il est stocké uniquement dans votre navigateur (sessionStorage) et n'est jamais envoyé ailleurs.
+        </p>
+        <div class="form-group">
+          <label>Token GitHub *</label>
+          <input type="password" id="ghTokenInput" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+        </div>
+        <button class="btn btn--teal" onclick="saveToken()"><i class="fas fa-save"></i> Enregistrer le token</button>
+        <button class="btn btn--outline" style="margin-left:0.75rem;" onclick="clearToken()"><i class="fas fa-trash"></i> Supprimer</button>
+        <div id="tokenStatus" style="margin-top:1rem;font-size:0.85rem;"></div>
+      </div>
+      <div class="add-form" style="margin-top:1.5rem;">
+        <h3><i class="fas fa-key"></i> Changer le mot de passe admin</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nouveau mot de passe</label>
+            <input type="password" id="newPwd1" placeholder="••••••••">
+          </div>
+          <div class="form-group">
+            <label>Confirmer</label>
+            <input type="password" id="newPwd2" placeholder="••••••••">
+          </div>
+        </div>
+        <button class="btn btn--teal" onclick="changePwd()"><i class="fas fa-save"></i> Changer le mot de passe</button>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+  /* ===== CONFIG ===== */
+  const GH_OWNER = 'stephaneleprince-dotcom';
+  const GH_REPO  = 'pdn-aura-2026';
+  const GH_FILE  = 'data/content.json';
+  const GH_BRANCH = 'main';
+
+  /* ===== DATA ===== */
+  let data = { gallery: [], videos: [], resources: [] };
+
+  /* ===== PASSWORD ===== */
+  const DEFAULT_PWD = 'pdnaura2026';
+  function getPassword() { return localStorage.getItem('adminPwd') || DEFAULT_PWD; }
+
+  function doLogin() {
+    const val = document.getElementById('loginPwd').value;
+    if (val === getPassword()) {
+      document.getElementById('loginPage').style.display = 'none';
+      document.getElementById('adminPanel').style.display = 'grid';
+      loadLocalData();
+    } else {
+      document.getElementById('loginErr').style.display = 'block';
+    }
+  }
+
+  function changePwd() {
+    const p1 = document.getElementById('newPwd1').value.trim();
+    const p2 = document.getElementById('newPwd2').value.trim();
+    if (!p1) { showToast('Mot de passe vide.', 'err'); return; }
+    if (p1 !== p2) { showToast('Les mots de passe ne correspondent pas.', 'err'); return; }
+    localStorage.setItem('adminPwd', p1);
+    showToast('Mot de passe changé avec succès !', 'ok');
+    document.getElementById('newPwd1').value = '';
+    document.getElementById('newPwd2').value = '';
+  }
+
+  /* ===== TOKEN ===== */
+  function getToken() { return sessionStorage.getItem('ghToken') || ''; }
+
+  function saveToken() {
+    const t = document.getElementById('ghTokenInput').value.trim();
+    if (!t) { showToast('Token vide.', 'err'); return; }
+    sessionStorage.setItem('ghToken', t);
+    document.getElementById('ghTokenInput').value = '';
+    document.getElementById('tokenStatus').innerHTML = '<span style="color:var(--green);"><i class="fas fa-check-circle"></i> Token enregistré pour cette session.</span>';
+    showToast('Token enregistré !', 'ok');
+  }
+
+  function clearToken() {
+    sessionStorage.removeItem('ghToken');
+    document.getElementById('tokenStatus').innerHTML = '<span style="color:var(--gray-600);">Aucun token enregistré.</span>';
+    showToast('Token supprimé.', '');
+  }
+
+  /* ===== PANELS ===== */
+  function showPanel(name) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.sidebar__nav a').forEach(a => a.classList.remove('active'));
+    document.getElementById('panel-' + name).classList.add('active');
+    document.getElementById('tab-' + name).classList.add('active');
+  }
+
+  /* ===== LOCAL DATA ===== */
+  function loadLocalData() {
+    const stored = localStorage.getItem('pdnContent');
+    if (stored) {
+      try { data = JSON.parse(stored); } catch(e) {}
+    } else {
+      // Try to fetch from server
+      fetch('./data/content.json?t=' + Date.now())
+        .then(r => r.ok ? r.json() : null)
+        .then(d => { if (d) { data = d; saveLocal(); } })
+        .catch(() => {})
+        .finally(() => renderAll());
+      return;
+    }
+    renderAll();
+    updateTokenStatus();
+  }
+
+  function saveLocal() { localStorage.setItem('pdnContent', JSON.stringify(data)); }
+
+  function updateTokenStatus() {
+    const tok = getToken();
+    if (tok) {
+      document.getElementById('tokenStatus').innerHTML = '<span style="color:var(--green);"><i class="fas fa-check-circle"></i> Token en mémoire pour cette session.</span>';
+    }
+  }
+
+  /* ===== RENDER ===== */
+  function renderAll() { renderPhotos(); renderVideos(); renderResources(); }
+
+  function renderPhotos() {
+    const el = document.getElementById('photoList');
+    if (!data.gallery.length) {
+      el.innerHTML = '<div class="items-empty"><i class="fas fa-camera"></i><p>Aucune photo pour l\'instant.</p></div>';
+      return;
+    }
+    el.innerHTML = data.gallery.map((p, i) => `
+      <div class="item-card">
+        <div class="item-card__thumb">
+          <img src="${p.url}" alt="${p.caption||''}" onerror="this.style.display='none'">
+        </div>
+        <div class="item-card__body">
+          <strong>${p.caption || 'Photo ' + (i+1)}</strong>
+          <span>${p.url}</span>
+        </div>
+        <div class="item-card__actions">
+          <button class="btn btn--red" onclick="removePhoto(${i})"><i class="fas fa-trash"></i></button>
+        </div>
+      </div>`).join('');
+  }
+
+  function renderVideos() {
+    const el = document.getElementById('videoList');
+    if (!data.videos.length) {
+      el.innerHTML = '<div class="items-empty"><i class="fas fa-video"></i><p>Aucune vidéo pour l\'instant.</p></div>';
+      return;
+    }
+    el.innerHTML = data.videos.map((v, i) => `
+      <div class="item-card">
+        <div class="item-card__thumb" style="display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:var(--teal-mid);">
+          <i class="fab fa-youtube" style="color:#FF0000;font-size:2rem;"></i>
+        </div>
+        <div class="item-card__body">
+          <strong>${v.title}</strong>
+          <span>${v.youtubeId}</span>
+          ${v.description ? `<span>${v.description}</span>` : ''}
+        </div>
+        <div class="item-card__actions">
+          <a href="https://youtu.be/${v.youtubeId}" target="_blank" class="btn btn--outline" style="padding:6px 10px;"><i class="fas fa-eye"></i></a>
+          <button class="btn btn--red" onclick="removeVideo(${i})"><i class="fas fa-trash"></i></button>
+        </div>
+      </div>`).join('');
+  }
+
+  function renderResources() {
+    const el = document.getElementById('resourceList');
+    if (!data.resources.length) {
+      el.innerHTML = '<div class="items-empty"><i class="fas fa-link"></i><p>Aucune ressource pour l\'instant.</p></div>';
+      return;
+    }
+    el.innerHTML = data.resources.map((r, i) => `
+      <div class="item-card">
+        <div class="item-card__body">
+          <strong>${r.title}</strong>
+          <span>${r.url}</span>
+          ${r.category ? `<span style="color:var(--teal);font-size:0.75rem;font-weight:600;">${r.category}</span>` : ''}
+        </div>
+        <div class="item-card__actions">
+          <a href="${r.url}" target="_blank" class="btn btn--outline" style="padding:6px 10px;"><i class="fas fa-eye"></i></a>
+          <button class="btn btn--red" onclick="removeResource(${i})"><i class="fas fa-trash"></i></button>
+        </div>
+      </div>`).join('');
+  }
+
+  /* ===== ADD / REMOVE ===== */
+  function addPhoto() {
+    const url = document.getElementById('photoUrl').value.trim();
+    const cap = document.getElementById('photoCaption').value.trim();
+    if (!url) { showToast('URL obligatoire.', 'err'); return; }
+    data.gallery.push({ id: Date.now().toString(), url, caption: cap });
+    saveLocal(); renderPhotos();
+    document.getElementById('photoUrl').value = '';
+    document.getElementById('photoCaption').value = '';
+    showToast('Photo ajoutée ! N\'oubliez pas de publier.', 'ok');
+  }
+
+  function removePhoto(i) {
+    if (!confirm('Supprimer cette photo ?')) return;
+    data.gallery.splice(i, 1); saveLocal(); renderPhotos();
+    showToast('Photo supprimée.', '');
+  }
+
+  function addVideo() {
+    let raw = document.getElementById('videoUrl').value.trim();
+    const title = document.getElementById('videoTitle').value.trim();
+    const desc = document.getElementById('videoDesc').value.trim();
+    if (!raw || !title) { showToast('URL et titre obligatoires.', 'err'); return; }
+    // Extract YouTube ID
+    let id = raw;
+    const m = raw.match(/(?:youtu\.be\/|v=|embed\/)([A-Za-z0-9_-]{11})/);
+    if (m) id = m[1];
+    data.videos.push({ id: Date.now().toString(), youtubeId: id, title, description: desc });
+    saveLocal(); renderVideos();
+    document.getElementById('videoUrl').value = '';
+    document.getElementById('videoTitle').value = '';
+    document.getElementById('videoDesc').value = '';
+    showToast('Vidéo ajoutée ! N\'oubliez pas de publier.', 'ok');
+  }
+
+  function removeVideo(i) {
+    if (!confirm('Supprimer cette vidéo ?')) return;
+    data.videos.splice(i, 1); saveLocal(); renderVideos();
+    showToast('Vidéo supprimée.', '');
+  }
+
+  function addResource() {
+    const title = document.getElementById('resTitle').value.trim();
+    const url   = document.getElementById('resUrl').value.trim();
+    const desc  = document.getElementById('resDesc').value.trim();
+    const cat   = document.getElementById('resCat').value.trim();
+    if (!title || !url) { showToast('Titre et URL obligatoires.', 'err'); return; }
+    data.resources.push({ id: Date.now().toString(), title, url, description: desc, category: cat });
+    saveLocal(); renderResources();
+    document.getElementById('resTitle').value = '';
+    document.getElementById('resUrl').value = '';
+    document.getElementById('resDesc').value = '';
+    document.getElementById('resCat').value = '';
+    showToast('Ressource ajoutée ! N\'oubliez pas de publier.', 'ok');
+  }
+
+  function removeResource(i) {
+    if (!confirm('Supprimer cette ressource ?')) return;
+    data.resources.splice(i, 1); saveLocal(); renderResources();
+    showToast('Ressource supprimée.', '');
+  }
+
+  /* ===== PUBLISH TO GITHUB ===== */
+  async function publishContent() {
+    const token = getToken();
+    if (!token) {
+      showToast('Aucun token GitHub. Configurez-le dans Paramètres.', 'err');
+      showPanel('settings');
+      return;
+    }
+
+    const statusEl = document.getElementById('publishStatus');
+    statusEl.textContent = 'Publication…';
+    statusEl.className = 'publish-status';
+
+    try {
+      const headers = {
+        'Authorization': 'token ' + token,
+        'Accept': 'application/vnd.github+json',
+        'User-Agent': 'pdn-aura-admin'
+      };
+
+      // Get current file SHA
+      const getResp = await fetch(
+        `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_FILE}`,
+        { headers }
+      );
+      let sha = null;
+      if (getResp.ok) {
+        const fileData = await getResp.json();
+        sha = fileData.sha;
+      }
+
+      // Encode content
+      const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+
+      const body = {
+        message: 'Mise à jour du contenu via l\'interface admin',
+        content,
+        branch: GH_BRANCH
+      };
+      if (sha) body.sha = sha;
+
+      const putResp = await fetch(
+        `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_FILE}`,
+        { method: 'PUT', headers: { ...headers, 'Content-Type': 'application/json' }, body: JSON.stringify(body) }
+      );
+
+      if (putResp.ok) {
+        statusEl.textContent = '✓ Publié';
+        statusEl.className = 'publish-status publish-status--ok';
+        showToast('Contenu publié ! Le site sera mis à jour dans 1-2 minutes.', 'ok');
+      } else {
+        const err = await putResp.json();
+        throw new Error(err.message || 'Erreur GitHub');
+      }
+    } catch(e) {
+      statusEl.textContent = '✗ Erreur';
+      statusEl.className = 'publish-status publish-status--err';
+      showToast('Erreur : ' + e.message, 'err');
+    }
+  }
+
+  /* ===== TOAST ===== */
+  let toastTimer;
+  function showToast(msg, type) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = 'toast show' + (type === 'err' ? ' toast--err' : type === 'ok' ? ' toast--ok' : '');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { el.className = 'toast'; }, 4000);
+  }
+</script>
+</body>
+</html>

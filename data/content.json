@@ -1,0 +1,20 @@
+{
+  "gallery": [],
+  "videos": [],
+  "resources": [
+    {
+      "id": "r1",
+      "title": "Site national Promeneurs du Net",
+      "url": "https://promeneursdunet.fr",
+      "description": "Le site de référence du dispositif national PDN : actualités, ressources, annuaire des Promeneurs.",
+      "category": "Dispositif PDN"
+    },
+    {
+      "id": "r2",
+      "title": "PDN Ain – Article sur la journée régionale AURA",
+      "url": "https://promeneursdunet01.fr/?p=968",
+      "description": "L'article d'annonce rédigé par la coordination PDN de l'Ain pour présenter la première journée régionale.",
+      "category": "Dispositif PDN"
+    }
+  ]
+}
